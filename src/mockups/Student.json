@@ -1,0 +1,92 @@
+[
+    {
+        "id": 1,
+        "name": "Carlos Almeida",
+        "fone": "(11) 98765-4321",
+        "email": "carlos.almeida@email.com"
+    },
+    {
+        "id": 2,
+        "name": "Fernanda Souza",
+        "fone": "(21) 99876-5432",
+        "email": "fernanda.souza@email.com"
+    },
+    {
+        "id": 3,
+        "name": "João Pereira",
+        "fone": "(31) 91234-5678",
+        "email": "joao.pereira@email.com"
+    },
+    {
+        "id": 4,
+        "name": "Juliana Oliveira",
+        "fone": "(41) 99888-9999",
+        "email": "juliana.oliveira@email.com"
+    },
+    {
+        "id": 5,
+        "name": "Lucas Martins",
+        "fone": "(51) 93456-7890",
+        "email": "lucas.martins@email.com"
+    },
+    {
+        "id": 6,
+        "name": "Mariana Costa",
+        "fone": "(61) 92123-4567",
+        "email": "mariana.costa@email.com"
+    },
+    {
+        "id": 7,
+        "name": "Roberto Lima",
+        "fone": "(71) 93234-5678",
+        "email": "roberto.lima@email.com"
+    },
+    {
+        "id": 8,
+        "name": "Ana Beatriz",
+        "fone": "(81) 94345-6789",
+        "email": "ana.beatriz@email.com"
+    },
+    {
+        "id": 9,
+        "name": "Eduardo Fernandes",
+        "fone": "(91) 95456-7890",
+        "email": "eduardo.fernandes@email.com"
+    },
+    {
+        "id": 10,
+        "name": "Patrícia Gomes",
+        "fone": "(31) 96567-8901",
+        "email": "patricia.gomes@email.com"
+    },
+    {
+        "id": 11,
+        "name": "Ricardo Moreira",
+        "fone": "(41) 97678-9012",
+        "email": "ricardo.moreira@email.com"
+    },
+    {
+        "id": 12,
+        "name": "Sabrina Duarte",
+        "fone": "(51) 98789-0123",
+        "email": "sabrina.duarte@email.com"
+    },
+    {
+        "id": 13,
+        "name": "Thiago Nunes",
+        "fone": "(61) 99890-1234",
+        "email": "thiago.nunes@email.com"
+    },
+    {
+        "id": 14,
+        "name": "Beatriz Mendes",
+        "fone": "(71) 90901-2345",
+        "email": "beatriz.mendes@email.com"
+    },
+    {
+        "id": 15,
+        "name": "Vinícius Rocha",
+        "fone": "(81) 91212-3456",
+        "email": "vinicius.rocha@email.com"
+    }
+]

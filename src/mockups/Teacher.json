@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "name": "Ricardo Martins",
+        "fone": "(12) 99812-3456",
+        "email": "ricardo.martins@email.com"
+    },
+    {
+        "id": 2,
+        "name": "Sofia Costa",
+        "fone": "(13) 98765-4321",
+        "email": "sofia.costa@email.com"
+    },
+    {
+        "id": 3,
+        "name": "Gabriel Ferreira",
+        "fone": "(14) 91234-5678",
+        "email": "gabriel.ferreira@email.com"
+    },
+    {
+        "id": 4,
+        "name": "Camila Santos",
+        "fone": "(15) 93456-7890",
+        "email": "camila.santos@email.com"
+    },
+    {
+        "id": 5,
+        "name": "Ricardo Souza",
+        "fone": "(16) 99876-5432",
+        "email": "ricardo.souza@email.com"
+    },
+    {
+        "id": 6,
+        "name": "Tatiane Almeida",
+        "fone": "(17) 92345-6789",
+        "email": "tatiane.almeida@email.com"
+    },
+    {
+        "id": 7,
+        "name": "Vitor Hugo",
+        "fone": "(18) 91678-5432",
+        "email": "vitor.hugo@email.com"
+    },
+    {
+        "id": 8,
+        "name": "Larissa Pereira",
+        "fone": "(19) 99877-6543",
+        "email": "larissa.pereira@email.com"
+    },
+    {
+        "id": 9,
+        "name": "Fábio Gomes",
+        "fone": "(20) 94456-7890",
+        "email": "fabio.gomes@email.com"
+    },
+    {
+        "id": 10,
+        "name": "Beatriz Silva",
+        "fone": "(21) 93211-4455",
+        "email": "beatriz.silva@email.com"
+    }
+]
