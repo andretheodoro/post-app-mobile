@@ -1,7 +1,12 @@
-// import axios from 'axios';
+import axios from 'axios';
+import Constants from 'expo-constants';
+import Config from 'react-native-config';
 
-// const api = axios.create({
-//     baseURL: 'http://localhost:3000/api'
-// });
+const api = axios.create({
+    // Pego de dois modos diferentes pois em algum momento tive problemas na passagem dos valores
+    baseURL: Config.API_URL || Constants.expoConfig?.extra?.API_URL,
+});
 
-// export default api;
+console.log('Base URL:', api.defaults.baseURL);
+
+export default api;

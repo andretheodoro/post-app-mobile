@@ -6,12 +6,12 @@ import { useAuth } from '../context/AuthContext';
 import { DrawerActions, useNavigation, } from '@react-navigation/native';
 import { TouchableOpacity, View, Text, StyleSheet, Button } from 'react-native';
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
-import StackRoutes from './stack.routes';
 import ListStudent from '../screens/Student/ListStudent';
 import ListTeacher from '../screens/Teacher/ListTeacher';
 import PostFormScreen from '../screens/Post/Post';
 import StudentFormScreen from '../screens/Student/Student';
 import TeacherFormScreen from '../screens/Student/Teacher';
+import Profile from '../screens/Teacher/Profile';
 
 const Drawer = createDrawerNavigator();
 
@@ -42,14 +42,14 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
 
 export default function DrawerRoutes() {
     const navigation = useNavigation();
-    const { isLoggedIn } = useAuth();
+    const { isAuthenticated } = useAuth();
     return (
         <Drawer.Navigator
-            screenOptions={{ swipeEnabled: isLoggedIn, headerShown: isLoggedIn }}
+            screenOptions={{ swipeEnabled: isAuthenticated, headerShown: isAuthenticated }}
             drawerContent={(props) => <CustomDrawerContent {...props} />}
         >
 
-            {isLoggedIn ? (
+            {isAuthenticated ? (
                 <>
                     <Drawer.Screen
                         name="ListPostsTeacher"
@@ -82,7 +82,7 @@ export default function DrawerRoutes() {
 
                     <Drawer.Screen
                         name="Profile"
-                        component={StackRoutes}
+                        component={Profile}
                         options={{
                             drawerIcon: ({ color, size }) => <FontAwesome5 name="user" color={color} size={size} />,
                             drawerLabel: 'Meu Perfil',

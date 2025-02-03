@@ -24,7 +24,7 @@ const PostFormScreen: React.FC<PostFormProps> = ({ route, onSubmit }) => {
     console.log(post);
 
     useEffect(() => {
-        reset({ ...post, idteacher: idTeacher });
+        reset({ ...post, idteacher: idTeacher ?? 0 });
     }, [post, reset]);
 
     const handleSave = async (data: IPost) => {

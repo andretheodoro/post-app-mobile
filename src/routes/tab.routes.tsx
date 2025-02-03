@@ -10,12 +10,12 @@ import ListPostsTeacher from '../screens/Teacher/ListPostsTeacher'
 const Tab = createBottomTabNavigator();
 
 export default function TabRoutes() {
-    const { isLoggedIn } = useAuth();
+    const { isAuthenticated } = useAuth();
 
     return (
         <Tab.Navigator screenOptions={{ headerShown: false }}>
 
-            {isLoggedIn ? (
+            {isAuthenticated ? (
                 <>
                     <Tab.Screen name="home" component={ListPostsTeacher} options={{
                         tabBarIcon: ({ color, size }) => <FontAwesome6 name="person-chalkboard" color={color} size={size} />,
