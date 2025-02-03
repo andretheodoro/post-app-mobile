@@ -10,7 +10,7 @@ import ListStudent from '../screens/Student/ListStudent';
 import ListTeacher from '../screens/Teacher/ListTeacher';
 import PostFormScreen from '../screens/Post/Post';
 import StudentFormScreen from '../screens/Student/Student';
-import TeacherFormScreen from '../screens/Student/Teacher';
+import TeacherFormScreen from '../screens/Teacher/Teacher';
 import Profile from '../screens/Teacher/Profile';
 
 const Drawer = createDrawerNavigator();

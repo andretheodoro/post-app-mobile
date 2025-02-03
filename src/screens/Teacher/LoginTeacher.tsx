@@ -13,8 +13,6 @@ const LoginTeacher = () => {
   const { login } = useAuth();
   const [username, setUsername] = useState('Tiago');
   const [password, setPassword] = useState('123456');
-  const [error, setError] = useState('');
-
 
   // const handleLogin = async () => {
   //   try {
@@ -29,33 +27,22 @@ const LoginTeacher = () => {
     console.log('usuario: ', username);
     console.log('senha: ', password);
     // console.log('apiUrl: ', apiUrl);
-    setError(''); // Limpa erros anteriores
+
     try {
       if (!username || !password) {
-        setError('Por favor, preencha o Usuário e Senha.');
+        Alert.alert('Por favor, preencha o Usuário e Senha.');
         return;
       }
-
-      console.log(api.defaults.baseURL);
-      // Fazendo a requisição com a URL base
-      const response = await api.post('/api/teacher/login', {
-        username,
-        password,
-      });
-
+      const response = await api.post('/api/teacher/login', { username, password, });
       const token = response.data.token;
       const idTeacher = response.data.idTeacher;
       login(token, idTeacher);
-
-      // Salvando dados no AsyncStorage
       // await AsyncStorage.setItem('authToken', token);
       // await AsyncStorage.setItem('idTeacher', idTeacher.toString());
-
       console.log('Token Login: ', token);
     } catch (err) {
-      setError('Credenciais inválidas. Tente novamente.');
       console.log(err);
-      Alert.alert('Erro', 'Credenciais inválidas. Tente novamente.');
+      Alert.alert('Credenciais inválidas. Tente novamente.');
     }
   };
 

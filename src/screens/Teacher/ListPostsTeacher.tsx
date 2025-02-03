@@ -1,14 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList, Keyboard } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, FlatList, Keyboard, ActivityIndicator } from 'react-native';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { IPost } from '@/src/model/Post';
 import CardPostsTeacher from '@/components/Cards/Teacher/CardPostsTeacher';
 import Pagination from '@/components/Pagination/Pagination';
-import mockPostsTeacher from '../../mockups/Posts.json';
-
 import styles from './ListPostsTeacherStyle';
+import usePostController from '@/src/controllers/PostController';
 const ITEMS_PER_PAGE = 5;
 
 type RootStackParamList = {
@@ -16,13 +15,53 @@ type RootStackParamList = {
 };
 
 const ListPostsTeacher = () => {
+  const { loadAllPosts } = usePostController();
+  const [data, setData] = useState<IPost[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [searchText, setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState<IPost[]>([]);
-  const [data] = useState(mockPostsTeacher);
   const [currentPage, setCurrentPage] = useState(1);
   const flatListRef = useRef<FlatList>(null);
 
+  // Função para carregar os posts
+  const handleLoadPosts = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      console.log("Carregando posts..."); // Verifique se entra aqui
+      const posts = await loadAllPosts(); // Chama a função para carregar os posts
+      console.log("Posts carregados: ", posts); // Verifique os dados aqui
+      setData(posts || []); // Atualiza o estado com os posts
+    } catch (err) {
+      console.log('Erro ao carregar posts:', err);
+      setError('Erro ao carregar posts. Tente novamente.'); // Se houver erro, exibe uma mensagem
+    } finally {
+      setLoading(false); // Desativa o indicador de carregamento
+    }
+  };
+
+  // Chama a função de carregar posts ao abrir a tela
+  useEffect(() => {
+    console.log("useEffect - Carregar Posts");
+    handleLoadPosts(); // Chama a função assim que o componente for montado
+  }, []); // Esse useEffect será executado apenas uma vez
+
+  // Limpar erro após 5 segundos
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError(null); // Limpa o erro após 5 segundos
+      }, 5000); // 5000 ms = 5 segundos
+
+      return () => clearTimeout(timer); // Limpa o timer se o componente for desmontado
+    }
+  }, [error]);
+
+  // Filtro de dados baseado no texto de pesquisa
   const dataToDisplay = searchText.length > 0 ? filteredData : data;
   const totalPages = Math.ceil(dataToDisplay.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -45,21 +84,22 @@ const ListPostsTeacher = () => {
     };
   }, []);
 
-
+  // Manipula a pesquisa
   const handleSearch = (text: string) => {
     setSearchText(text);
     const searchTerm = text.toLowerCase();
 
     if (searchTerm === '') {
-      setFilteredData([]);
+      setFilteredData([]); // Se a pesquisa estiver vazia, limpa o filtro
       setCurrentPage(1);
     } else {
       const results = data.filter(item => item.title.toString().toLowerCase().includes(searchTerm));
-      setFilteredData(results);
+      setFilteredData(results); // Filtra os dados com base na pesquisa
       setCurrentPage(1);
     }
   };
 
+  // Limpar a pesquisa
   const handleClear = () => {
     setSearchText('');
     setFilteredData([]);
@@ -68,8 +108,10 @@ const ListPostsTeacher = () => {
     if (flatListRef.current) {
       flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
     }
+    handleLoadPosts(); // Chama novamente a função de carregar os posts após limpar
   };
 
+  // Navegar para a tela de cadastro de post
   const handleCadastro = () => {
     const _post = {} as IPost;
     navigation.navigate('CreatePost', { _post });
@@ -90,12 +132,36 @@ const ListPostsTeacher = () => {
             <FontAwesome6 name="xmark" size={24} color="white" />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={handleCadastro} style={[styles.button, {}]}>
+          <TouchableOpacity onPress={handleCadastro} style={styles.button}>
             <FontAwesome6 name="file-circle-plus" size={24} color="white" />
           </TouchableOpacity>
         </View>
       </View>
-
+      {loading && (
+        <View style={{ alignItems: 'center', marginVertical: 20 }}>
+          <ActivityIndicator size="large" color="#007AFF" />
+          <Text style={{ marginTop: 10, fontSize: 16, color: '#555' }}>
+            Carregando posts...
+          </Text>
+        </View>
+      )}
+      {error && (
+        <View
+          style={{
+            backgroundColor: '#FFD2D2',
+            padding: 15,
+            borderRadius: 8,
+            marginVertical: 10,
+            alignItems: 'center',
+          }}>
+          <Text style={{ color: '#D8000C', fontWeight: 'bold', fontSize: 16 }}>
+            Ocorreu um erro!
+          </Text>
+          <Text style={{ color: '#D8000C', fontSize: 14, marginTop: 5 }}>
+            {error}
+          </Text>
+        </View>
+      )}
       <FlatList
         ref={flatListRef}
         data={paginatedData.length > 0 ? paginatedData : []}
@@ -106,9 +172,8 @@ const ListPostsTeacher = () => {
           <Text style={styles.emptyMessage}>Nenhum registro encontrado.</Text>
         ) : null}
       />
-
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} recordsPerPage={ITEMS_PER_PAGE} />
-    </View >
+    </View>
   );
 };
 

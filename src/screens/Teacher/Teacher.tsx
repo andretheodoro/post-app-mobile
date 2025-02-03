@@ -7,6 +7,7 @@ import { ITeacher } from '@/src/model/Teacher';
 import { useAuth } from '@/src/context/AuthContext';
 import styles from './TeacherStyle';
 
+
 interface TeacherFormProps {
     route: RouteProp<any, any>;
     onSubmit: (data: ITeacher) => void;
@@ -18,12 +19,10 @@ const TeacherFormScreen: React.FC<TeacherFormProps> = ({ route, onSubmit }) => {
     const { control, handleSubmit, reset, formState: { errors } } = useForm<ITeacher>();
     const teacher = route.params?._teacher as ITeacher;
 
-    console.log(idTeacher);
-    console.log(teacher);
-
     useEffect(() => {
-        reset(teacher ?? {});
+        reset({ ...teacher, id: teacher.id ?? 0 });
     }, [teacher, reset]);
+
 
     const handleSave = async (data: ITeacher) => {
         try {

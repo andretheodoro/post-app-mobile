@@ -17,11 +17,8 @@ const StudentFormScreen: React.FC<StudentFormProps> = ({ route, onSubmit }) => {
     const { control, handleSubmit, reset, formState: { errors } } = useForm<IStudent>();
     const student = route.params?._student as IStudent;
 
-    console.log(idTeacher);
-    console.log(student);
-
     useEffect(() => {
-        reset(student ?? {});
+        reset({ ...student, id: student.id ?? 0 });
     }, [student, reset]);
 
     const handleSave = async (data: IStudent) => {

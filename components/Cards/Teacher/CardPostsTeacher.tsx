@@ -13,7 +13,7 @@ const CardPostsTeacher = (item: IPost) => {
     const [isModalVisible, setModalVisible] = useState(false);
 
     // Chama o hook usePostController diretamente aqui
-    const { deletarPost, listarPosts } = usePostController();
+    const { deletarPost } = usePostController();
 
     const truncatedDescription = item.description.length > 50 ? item.description.substring(0, 50) + '...' : item.description;
 
@@ -24,14 +24,14 @@ const CardPostsTeacher = (item: IPost) => {
 
     // Passando deletarPost como callback
     const deleteRecordFromApi = async (idPost: number) => {
-        console.log('Chamada API de exclusão');
+        // console.log('Chamada API de exclusão');
         // Simulando uma chamada API com um atraso de 2 segundos
         await new Promise(resolve => {
             deletarPost(idPost); // Aqui é onde a exclusão é chamada
             setTimeout(resolve, 2000);
             // listarPosts();
         });
-        console.log('Registro excluído com sucesso');
+        // console.log('Registro excluído com sucesso');
     };
 
     const handleCancel = () => {
