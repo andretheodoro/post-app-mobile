@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, TextInput, Text, Button, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
-import { DrawerActions, RouteProp, useNavigation } from '@react-navigation/native';
+import { CommonActions, DrawerActions, RouteProp, useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
 import { IPost } from '@/src/model/Post';
 import usePostController from '@/src/controllers/PostController';
@@ -73,7 +73,13 @@ const PostFormScreen: React.FC<PostFormProps> = ({ route, onSubmit }) => {
                             navigation.goBack();
                         navigation.dispatch(DrawerActions.closeDrawer());
 
-                        navigation.navigate('ListPostsTeacher', { refresh: true }); // validar se está atualizando a lista de posts
+                        // navigation.navigate('ListPostsTeacher', { refresh: true }); // validar se está atualizando a lista de posts
+                        navigation.dispatch(
+                            CommonActions.reset({
+                                index: 0,
+                                routes: [{ name: 'ListPostsTeacher', params: { refresh: true } }],
+                            })
+                        )
                         // Atualiza a tela de listagem de posts
                     }
                 });
