@@ -32,12 +32,10 @@ const ListPostsTeacher = () => {
     setError(null);
 
     try {
-      console.log("Carregando posts..."); // Verifique se entra aqui
       const posts = await loadAllPosts(); // Chama a função para carregar os posts
-      console.log("Posts carregados: ", posts); // Verifique os dados aqui
+
       setData(posts || []); // Atualiza o estado com os posts
     } catch (err) {
-      console.log('Erro ao carregar posts:', err);
       setError('Erro ao carregar posts. Tente novamente.'); // Se houver erro, exibe uma mensagem
     } finally {
       setLoading(false); // Desativa o indicador de carregamento
@@ -46,7 +44,6 @@ const ListPostsTeacher = () => {
 
   // Chama a função de carregar posts ao abrir a tela
   useEffect(() => {
-    console.log("useEffect - Carregar Posts");
     handleLoadPosts(); // Chama a função assim que o componente for montado
   }, []); // Esse useEffect será executado apenas uma vez
 

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { View, TextInput, Text, Button, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, TextInput, Text, Button, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { RouteProp } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
@@ -7,6 +7,7 @@ import { IPost } from '@/src/model/Post';
 import usePostController from '@/src/controllers/PostController';
 import { useAuth } from '@/src/context/AuthContext';
 import styles from './PostStyle';
+import PopupNotification from '@/components/Notification/Notification';
 
 
 interface PostFormProps {
@@ -15,32 +16,88 @@ interface PostFormProps {
 }
 
 const PostFormScreen: React.FC<PostFormProps> = ({ route, onSubmit }) => {
-    const { gravarPost } = usePostController();
+    const { gravarPost, loadAllPosts } = usePostController();
     const { idTeacher } = useAuth();
+    interface Notification {
+        type: string;
+        message: string;
+    }
+
+    const [notification, setNotification] = useState<Notification | null>(null);
     const { control, handleSubmit, reset, formState: { errors } } = useForm<IPost>();
     const post = route.params?._post as IPost;
-
-    console.log(idTeacher);
-    console.log(post);
-
     useEffect(() => {
         reset({ ...post, idteacher: idTeacher ?? 0 });
     }, [post, reset]);
 
+    // useEffect(() => {
+    //     if (notification) {
+    //         const timer = setTimeout(() => {
+    //             setNotification(null); // Limpa o erro após 5 segundos
+    //         }, 5000); // 5000 ms = 5 segundos
+
+    //         return () => clearTimeout(timer); // Limpa o timer se o componente for desmontado
+    //     }
+    // }, [notification]);
+
+    const showNotification = (type: string, message: string) => {
+        setNotification({ type, message });
+
+        // Remover a notificação após o tempo definido
+        setTimeout(() => {
+            setNotification(null);
+        }, 5000);
+    };
+
     const handleSave = async (data: IPost) => {
         try {
-            console.log('Dados do formulário:', data);
             const novoPost = await gravarPost(data);
-            console.log('Post gravado:', novoPost);
-            onSubmit(novoPost);
+            // onSubmit(novoPost);
+            if (novoPost && novoPost.hasOwnProperty('id')) {
+                console.log("novoPost", novoPost);
+                // Aqui você pode fazer algo com o novoPost, como chamar onSubmit
+                // onSubmit(novoPost);
+            } else {
+                // Se não for um IPost válido, exibe uma mensagem de alerta
+                console.log(novoPost);
+                if (typeof novoPost === 'string')
+                    setNotification({ type: 'warning', message: novoPost });
+
+            }
+
         } catch (error) {
-            console.error('Erro ao gravar post:', error);
+            // console.error('Erro ao gravar post:', error);
         }
     };
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={styles.formContainer}>
+                {/* {error && (
+                    <View
+                        style={{
+                            backgroundColor: '#FFD2D2',
+                            padding: 15,
+                            borderRadius: 8,
+                            marginVertical: 10,
+                            alignItems: 'center',
+                        }}>
+                        <Text style={{ color: '#D8000C', fontWeight: 'bold', fontSize: 16 }}>
+                            Ocorreu um erro!
+                        </Text>
+                        <Text style={{ color: '#D8000C', fontSize: 14, marginTop: 5 }}>
+                            {error}
+                        </Text>
+                    </View>
+                )} */}
+                {notification && (
+                    <PopupNotification
+                        type={notification.type}
+                        message={notification.message}
+                        duration={3000}
+                        onClose={() => setNotification(null)}
+                    />
+                )}
                 <Text style={styles.label}>Título</Text>
                 <Controller
                     control={control}

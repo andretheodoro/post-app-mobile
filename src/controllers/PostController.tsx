@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IPost } from '../model/Post';
 // import postsData from '../mockups/Posts.json';
 import api from '../api/api';
-import { AxiosResponse } from 'axios';
+import { AxiosResponse, HttpStatusCode } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { verifyExpirationAndRefreshToken } from '../context/AuthContext';
-
+import { useAuth } from '../context/AuthContext';
+import { Alert } from 'react-native';
 const usePostController = () => {
     const [posts, setPosts] = useState<IPost[]>([]);
     const navigation = useNavigation();
@@ -57,46 +58,33 @@ const usePostController = () => {
     //         setError('Ocorreu um erro inesperado.');
     //       }
     //     });
+
+
+    const { logout } = useAuth();
+
     const loadAllPosts = async (): Promise<IPost[]> => {
         let result: IPost[] = [];
+
         try {
             const token = await AsyncStorage.getItem('authToken');
-            console.log(token);
+
             let response: AxiosResponse<any, any>;
             const idTeacher = await AsyncStorage.getItem('idTeacher');
-
+            console.log("idTeacher", idTeacher);
             if ((token != null && token != "") || (idTeacher != null && Number(idTeacher) > 0)) {
-                console.log("idTeacher", idTeacher);
                 response = await api.get(`/api/posts/teacher/${idTeacher}`, {
-                    // headers: {
-                    //     Authorization: `Bearer ${token}`,
-                    // },
                 }).then((_response: AxiosResponse) => {
                     verifyExpirationAndRefreshToken(_response);
                     return _response;
                 })
                     .catch((error) => {
-                        console.log(error);
-                        // if (error.response && error.response.data.errors) {
-                        //     const errorMessages = (() => {
-                        //         const [firstError] = error.response.data.errors;
-                        //         const [field, message] = Object.entries(firstError)[0];
-                        //         return `${field === "title" ? "Título" : field === "description" ? "Descrição" : "Autor"}: ${message}`;
-                        //     })();
-                        //     setError(errorMessages); // Define todas as mensagens de erro no estado
-                        // } else {
-                        //     setError('Ocorreu um erro inesperado.');
-                        // }
+                        logoutNotAutenticated(error, logout, navigation);
                         throw error;
                     });
 
             } else {
                 response = await api.get('/api/posts');
             }
-
-            // console.clear();
-            console.log("Estou Aqui", response.data);
-
             result = response.data as IPost[];
             setPosts(result);  // Atualiza o estado
         } catch (error) {
@@ -106,29 +94,63 @@ const usePostController = () => {
         return result;
     };
 
-    const gravarPost = (post: IPost) => {
-        console.log(post);
-        if (post) {
-            if (post.title.trim() && post.author.trim() && post.description.trim() && post.idteacher) {
-                const novoPost = {
-                    id: posts.length + 1,
-                    title: post.title,
-                    author: post.author,
-                    description: post.description,
-                    creation: new Date(),
-                    update_date: new Date(),
-                    idteacher: post.idteacher,
-                };
+    const gravarPost = async (post: IPost): Promise<IPost | string> => {
+        // setError('');
+        const token = await AsyncStorage.getItem('authToken'); // Pegando o token do localStorage
 
-                setPosts((prevPosts: IPost[]) => [...prevPosts, novoPost]);
-                return novoPost;
-            } else {
-                throw new Error('Todos os campos são obrigatórios!');
-            }
-        } else {
-            throw new Error('Todos os campos são obrigatórios!');
+        if (!token) {
+            // setError('Token não encontrado. Usuário não autenticado.');
+            Alert.alert('Token não encontrado. Usuário não autenticado.');
+            logout();
+            navigation.goBack();
+            navigation.dispatch(DrawerActions.closeDrawer());
         }
+        const newPost = { title: post.title, author: post.author, description: post.description, creation: new Date(), update_date: new Date(), idteacher: post.idteacher, };
 
+        var response = api.post('/api/posts', newPost).then((response: AxiosResponse) => {
+            verifyExpirationAndRefreshToken(response);
+            // navigate('/teacherPostsList'); // Redireciona para a lista de posts do professor após a criação
+            // navigation.navigate('ListPostsTeacher'); // Fecha o drawer após o timeout
+
+        })
+            .catch((error) => {
+                logoutNotAutenticated(error, logout, navigation);
+
+                if (error.response && error.response.data.errors) {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    // const errorMessages = (() => {
+                    //     const [firstError] = error.response.data.errors;
+                    //     console.log("firstError", error.response.data.errors);
+                    //     const [field, message] = Object.entries(firstError)[0];
+                    //     return `${field === "title" ? "Título" : field === "description" ? "Descrição" : "Autor"}: ${message}`;
+                    // })();
+
+                    const messages = error.response.data.errors.map((err) => {
+                        const [field, message] = Object.entries(err)[0];
+
+                        // Substituindo o nome do campo por uma versão mais amigável
+                        const fieldName = field === "title" ? "Título"
+                            : field === "description" ? "Descrição"
+                                : field === "author" ? "Autor"
+                                    : field;
+
+                        return `${fieldName}: ${message}`;
+                    }).join('\n');  // Junta as mensagens com quebra de linha
+
+
+                    console.log("errorMessages", messages);
+                    return messages;
+                    // setError(errorMessages); // Define todas as mensagens de erro no estado
+                } else {
+                    // setError('Ocorreu um erro inesperado.');
+                    console.log("errorMessages", error);
+                }
+
+                throw error;
+
+            });
+
+        return response as unknown as IPost | string;
     };
 
     const deletarPost = (id: number) => {
@@ -150,3 +172,26 @@ const usePostController = () => {
 };
 
 export default usePostController;
+
+function logoutNotAutenticated(error: any, logout: () => void, navigation) {
+    console.log("error", error.response.status);
+    if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+        // const timeoutRef = useRef<NodeJS.Timeout | null>(null); // Usamos useRef para manter o timeout
+        // navigation.navigate('home');
+        Alert.alert('Sua sessão expirou', 'Efetue login novamente.', [
+            {
+                text: 'OK',
+                onPress: () => {
+                    // if (timeoutRef.current !== null) {
+                    //     clearTimeout(timeoutRef.current); // Limpa o timeout se o botão "OK" for pressionado
+                    // }
+                    logout();
+                    navigation.goBack();
+                    // navigation.navigate('home');
+                    navigation.dispatch(DrawerActions.closeDrawer());
+                },
+            },
+        ]);
+    }
+}
+

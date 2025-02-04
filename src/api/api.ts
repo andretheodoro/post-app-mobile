@@ -1,12 +1,49 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { DrawerActions } from '@react-navigation/native';
 import axios from 'axios';
 import Constants from 'expo-constants';
+import { Alert } from 'react-native';
 import Config from 'react-native-config';
 
 const api = axios.create({
-    // Pego de dois modos diferentes pois em algum momento tive problemas na passagem dos valores
     baseURL: Config.API_URL || Constants.expoConfig?.extra?.API_URL,
 });
 
 console.log('Base URL:', api.defaults.baseURL);
+
+// Interceptor para adicionar o token nas requisições
+api.interceptors.request.use(
+    async (config) => {
+        const token = await AsyncStorage.getItem('authToken');
+        // console.log('Interceptor request:', token);
+        if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => Promise.reject(error)
+);
+
+// Tentativa de criar um interceptor para tratar erros de autenticação, e desligar o usuário caso token invalido
+// Mas não tive sucesso, pois o navigator apresentava erro
+
+// export const setupInterceptors = (navigation, logout) => {
+//     api.interceptors.response.use(
+//         response => response,
+//         async error => {
+//             console.log(error);
+//             if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+//                 Alert.alert('Sua sessão expirou', 'Efetue login novamente.');
+
+//                 // Aguarda 5 segundos antes de deslogar
+//                 setTimeout(() => {
+//                     logout();
+//                     navigation.dispatch(DrawerActions.closeDrawer());
+//                 }, 5000);
+//             }
+//             return Promise.reject(error);
+//         }
+//     );
+// };
 
 export default api;

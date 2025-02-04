@@ -66,7 +66,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 setAuthenticated(false);
             }
         } catch (error) {
-            console.error('Erro ao verificar o token:', error);
+            console.log('Erro ao verificar o token:', error);
             setAuthenticated(false);
         }
     };
@@ -86,7 +86,7 @@ export const useAuth = () => {
     return context;
 };
 
-// 🔹 Verifica a expiração do token e tenta atualizá-lo
+// Verifica a expiração do token e tenta atualizá-lo
 export const verifyExpirationAndRefreshToken = async (response: AxiosResponse) => {
     try {
         const newToken = response.headers['authorization']; // Algumas APIs podem usar um nome diferente, verifique com a sua API
@@ -94,6 +94,11 @@ export const verifyExpirationAndRefreshToken = async (response: AxiosResponse) =
             console.log('Novo token recebido:', newToken);
             await AsyncStorage.setItem('authToken', newToken);
         }
+
+        const storedToken = await AsyncStorage.getItem('authToken');
+        console.log('Token Atual:', storedToken);
+
+        await AsyncStorage.setItem('authToken', storedToken?.toString() ?? '');
     } catch (error) {
         console.error('Erro ao verificar expiração do token:', error);
     }
