@@ -15,7 +15,7 @@ interface PostFormProps {
 }
 
 const PostFormScreen: React.FC<PostFormProps> = ({ route, onSubmit }) => {
-    const { gravarPost, loadAllPosts } = usePostController();
+    const { gravarPost, atualizarPost } = usePostController();
     const { idTeacher } = useAuth();
 
     const [notification, setNotification] = useState<INotification | null>(null);
@@ -54,7 +54,12 @@ const PostFormScreen: React.FC<PostFormProps> = ({ route, onSubmit }) => {
         }
 
         try {
-            const novoPost = await gravarPost(data);
+            let novoPost: IPost | string;
+            if ((data.id ?? 0) > 0)
+                novoPost = await atualizarPost(data);
+            else
+                novoPost = await gravarPost(data);
+
             console.log("novoPost", novoPost);
             console.log("novoPost2222", typeof novoPost);
 
@@ -86,6 +91,7 @@ const PostFormScreen: React.FC<PostFormProps> = ({ route, onSubmit }) => {
             }
 
         } catch (error) {
+            console.log("error", error);
             setNotification({
                 type: 'error',
                 message: 'Erro ao gravar post. Tente novamente.',

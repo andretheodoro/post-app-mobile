@@ -147,6 +147,61 @@ const usePostController = () => {
         return response as unknown as IPost | string;
     };
 
+    const atualizarPost = async (post: IPost): Promise<IPost | string> => {
+        // setError('');
+        const token = await AsyncStorage.getItem('authToken'); // Pegando o token do localStorage
+
+        if (!token) {
+            // setError('Token não encontrado. Usuário não autenticado.');
+            Alert.alert('Token não encontrado. Usuário não autenticado.');
+            logout();
+            if (navigation.canGoBack())
+                navigation.goBack();
+            navigation.dispatch(DrawerActions.closeDrawer());
+        }
+        const newPost = { title: post.title, author: post.author, description: post.description, creation: new Date(), update_date: new Date(), idteacher: post.idteacher, };
+
+
+        var response = await api.put(`/api/posts/${post.id}`, newPost).then((response: AxiosResponse) => {
+
+            verifyExpirationAndRefreshToken(response);
+            // navigate('/teacherPostsList'); // Redireciona para a lista de posts do professor após a criação
+            // navigation.navigate('ListPostsTeacher'); // Fecha o drawer após o timeout
+            return response.data;
+        })
+            .catch((error) => {
+                logoutNotAutenticated(error, logout, navigation);
+
+                if (error.response && error.response.data.errors) {
+                    const messages = error.response.data.errors.map((err) => {
+                        const [field, message] = Object.entries(err)[0];
+
+                        // Substituindo o nome do campo por uma versão mais amigável
+                        const fieldName = field === "title" ? "Título"
+                            : field === "description" ? "Descrição"
+                                : field === "author" ? "Autor"
+                                    : field;
+
+                        return `${fieldName}: ${message}`;
+                    }).join('\n');  // Junta as mensagens com quebra de linha
+
+
+                    console.log("errorMessages", messages);
+                    return messages;
+                    // setError(errorMessages); // Define todas as mensagens de erro no estado
+                } else {
+                    // setError('Ocorreu um erro inesperado.');
+                    console.log("errorMessages", error);
+                }
+
+                return error;
+
+            });
+
+        return response as unknown as IPost | string;
+    };
+
+
     const deletarPost = async (id: number): Promise<AxiosResponse | void> => {
         // setError('');
         const token = await AsyncStorage.getItem('authToken'); // Pegando o token do localStorage
@@ -176,7 +231,7 @@ const usePostController = () => {
     };
 
 
-    return { gravarPost, deletarPost, loadAllPosts };
+    return { gravarPost, deletarPost, loadAllPosts, atualizarPost };
 };
 
 export default usePostController;
