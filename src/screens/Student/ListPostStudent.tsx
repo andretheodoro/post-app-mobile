@@ -87,9 +87,24 @@ const ListPostStudent = () => {
     setSelectedItem(null);
   };
 
-  return (
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
 
-    <View style={styles.container} >
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+      setIsKeyboardVisible(true);
+    });
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+      setIsKeyboardVisible(false);
+    });
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
+  return (
+    <View style={[styles.container, { paddingBottom: isKeyboardVisible ? 0 : 80 }]}>
       <View style={styles.form}>
         <View style={styles.inputGroup}>
           <TextInput

@@ -33,7 +33,7 @@ const LoginTeacher = () => {
         Alert.alert('Por favor, preencha o Usuário e Senha.');
         return;
       }
-      const response = await api.post('/api/teacher/login', { username, password, });
+      const response = await api.post('/api/teacher/login', { username, password });
       const token = response.data.token;
       const idTeacher = response.data.idTeacher;
       login(token, idTeacher);

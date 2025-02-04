@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, FlatList, Keyboard, ActivityIndicator } from 'react-native';
 import { FontAwesome6 } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { IPost } from '@/src/model/Post';
 import CardPostsTeacher from '@/components/Cards/Teacher/CardPostsTeacher';
@@ -13,6 +13,7 @@ const ITEMS_PER_PAGE = 5;
 type RootStackParamList = {
   CadastrarPost: IPost;
 };
+
 
 const ListPostsTeacher = () => {
   const { loadAllPosts } = usePostController();
@@ -26,11 +27,26 @@ const ListPostsTeacher = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const flatListRef = useRef<FlatList>(null);
 
+
+  useFocusEffect(
+    useCallback(() => {
+      handleLoadPosts(); // Recarrega os posts sempre que a tela for reexibida
+    }, [])
+  );
+
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      handleLoadPosts(); // Atualiza a lista ao voltar para a tela
+    }
+  }, [isFocused]);
+
   // Função para carregar os posts
   const handleLoadPosts = async () => {
     setLoading(true);
     setError(null);
-
+    console.log("handleLoadPosts");
     try {
       const posts = await loadAllPosts(); // Chama a função para carregar os posts
 
@@ -162,7 +178,7 @@ const ListPostsTeacher = () => {
       <FlatList
         ref={flatListRef}
         data={paginatedData.length > 0 ? paginatedData : []}
-        renderItem={({ item }) => <CardPostsTeacher {...item} />}
+        renderItem={({ item }) => <CardPostsTeacher item={item} handleLoadPosts={handleLoadPosts} />}
         keyExtractor={(item) => item.id.toString()}
         style={styles.cardList}
         ListEmptyComponent={searchText.length > 0 && paginatedData.length === 0 ? (

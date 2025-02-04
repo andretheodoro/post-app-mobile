@@ -4,6 +4,7 @@ import axios from 'axios';
 import Constants from 'expo-constants';
 import { Alert } from 'react-native';
 import Config from 'react-native-config';
+import { verifyExpirationAndRefreshToken } from '../context/AuthContext';
 
 const api = axios.create({
     baseURL: Config.API_URL || Constants.expoConfig?.extra?.API_URL,
@@ -23,6 +24,33 @@ api.interceptors.request.use(
     },
     (error) => Promise.reject(error)
 );
+
+
+
+// api.interceptors.response.use(
+//     async response => {
+//         const token = await AsyncStorage.getItem('authToken');
+//         console.log('Interceptor response:', token);
+//         if (token)
+//             verifyExpirationAndRefreshToken(response);
+//         return response;
+//     },
+//     (error) => Promise.reject(error)
+//     // async error => {
+//     //     console.log(error);
+//     //     if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+//     //         Alert.alert('Sua sessão expirou', 'Efetue login novamente.');
+
+//     //         // Aguarda 5 segundos antes de deslogar
+//     //         setTimeout(() => {
+//     //             logout();
+//     //             navigation.dispatch(DrawerActions.closeDrawer());
+//     //         }, 5000);
+//     //     }
+//     //     return Promise.reject(error);
+//     // }
+// );
+
 
 // Tentativa de criar um interceptor para tratar erros de autenticação, e desligar o usuário caso token invalido
 // Mas não tive sucesso, pois o navigator apresentava erro

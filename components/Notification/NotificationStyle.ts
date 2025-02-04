@@ -4,8 +4,8 @@ const styles = StyleSheet.create({
     container: {
         position: 'absolute',
         top: 0,
-        left: 20,
-        right: 20,
+        left: 10,
+        right: 10,
         padding: 12,
         flexDirection: 'row',
         alignItems: 'center',

@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Text, Animated } from 'react-native';
+import { Text, Animated, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import styles from './NotificationStyle';
+
+export interface INotification {
+    type: string;
+    message: string;
+    onClose?: () => void;
+}
 
 const Notification = ({ type = 'success', message = '', duration = 3000, onClose }) => {
     const [visible, setVisible] = useState(true);
@@ -21,12 +27,23 @@ const Notification = ({ type = 'success', message = '', duration = 3000, onClose
                 useNativeDriver: true,
             }).start(() => {
                 setVisible(false);
-                if (onClose) onClose();
+                if (onClose) onClose();  // Callback após o fechamento automático
             });
         }, duration);
 
-        return () => clearTimeout(timeout);
+        return () => clearTimeout(timeout); // Limpa o timeout se o componente for desmontado
     }, [fadeAnim, duration, onClose]);
+
+    const closeNotification = () => {
+        Animated.timing(fadeAnim, {
+            toValue: 0,
+            duration: 500,
+            useNativeDriver: true,
+        }).start(() => {
+            setVisible(false);
+            if (onClose) onClose();  // Callback após o clique
+        });
+    };
 
     if (!visible) return null;
 
@@ -46,10 +63,12 @@ const Notification = ({ type = 'success', message = '', duration = 3000, onClose
     const { icon, color, bgColor } = getNotificationStyle();
 
     return (
-        <Animated.View style={[styles.container, { backgroundColor: bgColor, opacity: fadeAnim }]}>
-            <MaterialIcons name={icon} size={24} color={color} style={styles.icon} />
-            <Text style={[styles.message, { color }]}>{message}</Text>
-        </Animated.View>
+        <TouchableOpacity onPress={closeNotification} style={styles.container}>
+            <Animated.View style={[styles.container, { backgroundColor: bgColor, opacity: fadeAnim }]}>
+                <MaterialIcons name={icon} size={24} color={color} style={styles.icon} />
+                <Text style={[styles.message, { color }]}>{message}</Text>
+            </Animated.View>
+        </TouchableOpacity>
     );
 };
 

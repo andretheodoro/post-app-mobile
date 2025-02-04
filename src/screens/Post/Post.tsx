@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, TextInput, Text, Button, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
-import { RouteProp } from '@react-navigation/native';
+import { DrawerActions, RouteProp, useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
 import { IPost } from '@/src/model/Post';
 import usePostController from '@/src/controllers/PostController';
 import { useAuth } from '@/src/context/AuthContext';
 import styles from './PostStyle';
-import PopupNotification from '@/components/Notification/Notification';
-
+import Notification, { INotification } from '@/components/Notification/Notification';
 
 interface PostFormProps {
     route: RouteProp<any, any>;
@@ -18,14 +17,11 @@ interface PostFormProps {
 const PostFormScreen: React.FC<PostFormProps> = ({ route, onSubmit }) => {
     const { gravarPost, loadAllPosts } = usePostController();
     const { idTeacher } = useAuth();
-    interface Notification {
-        type: string;
-        message: string;
-    }
 
-    const [notification, setNotification] = useState<Notification | null>(null);
+    const [notification, setNotification] = useState<INotification | null>(null);
     const { control, handleSubmit, reset, formState: { errors } } = useForm<IPost>();
     const post = route.params?._post as IPost;
+    const navigation = useNavigation();
     useEffect(() => {
         reset({ ...post, idteacher: idTeacher ?? 0 });
     }, [post, reset]);
@@ -40,33 +36,61 @@ const PostFormScreen: React.FC<PostFormProps> = ({ route, onSubmit }) => {
     //     }
     // }, [notification]);
 
-    const showNotification = (type: string, message: string) => {
-        setNotification({ type, message });
-
-        // Remover a notificação após o tempo definido
-        setTimeout(() => {
-            setNotification(null);
-        }, 5000);
+    const clearNotification = () => {
+        console.log("clearNotification");
+        setNotification(null); // Limpa a notificação
     };
 
+
     const handleSave = async (data: IPost) => {
+        // Verifica se há erros antes de gravar
+        if (Object.keys(errors).length > 0) {
+            setNotification({
+                type: 'warning',
+                message: 'Por favor, preencha todos os campos obrigatórios.',
+                onClose: clearNotification,
+            });
+            return;
+        }
+
         try {
             const novoPost = await gravarPost(data);
+            console.log("novoPost", novoPost);
+            console.log("novoPost2222", typeof novoPost);
+
             // onSubmit(novoPost);
-            if (novoPost && novoPost.hasOwnProperty('id')) {
+            if (typeof novoPost === 'object') {
                 console.log("novoPost", novoPost);
+                setNotification({
+                    type: 'success', message: "Post gravado com sucesso", onClose: () => {
+                        clearNotification();
+                        if (navigation.canGoBack())
+                            navigation.goBack();
+                        navigation.dispatch(DrawerActions.closeDrawer());
+
+                        navigation.navigate('ListPostsTeacher', { refresh: true }); // validar se está atualizando a lista de posts
+                        // Atualiza a tela de listagem de posts
+                    }
+                });
                 // Aqui você pode fazer algo com o novoPost, como chamar onSubmit
                 // onSubmit(novoPost);
+                // Navega de volta e sinaliza atualização na outra tela
+
+
             } else {
                 // Se não for um IPost válido, exibe uma mensagem de alerta
                 console.log(novoPost);
                 if (typeof novoPost === 'string')
-                    setNotification({ type: 'warning', message: novoPost });
+                    setNotification({ type: 'warning', message: novoPost, onClose: clearNotification, });
 
             }
 
         } catch (error) {
-            // console.error('Erro ao gravar post:', error);
+            setNotification({
+                type: 'error',
+                message: 'Erro ao gravar post. Tente novamente.',
+                onClose: clearNotification,
+            });
         }
     };
 
@@ -91,11 +115,11 @@ const PostFormScreen: React.FC<PostFormProps> = ({ route, onSubmit }) => {
                     </View>
                 )} */}
                 {notification && (
-                    <PopupNotification
+                    <Notification
                         type={notification.type}
                         message={notification.message}
-                        duration={3000}
-                        onClose={() => setNotification(null)}
+                        duration={8000}
+                        onClose={notification.onClose}
                     />
                 )}
                 <Text style={styles.label}>Título</Text>

@@ -4,7 +4,7 @@ import { IPost } from '../model/Post';
 import api from '../api/api';
 import { AxiosResponse, HttpStatusCode } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { DrawerActions, NavigationProp, NavigationState, useNavigation } from '@react-navigation/native';
 import { verifyExpirationAndRefreshToken } from '../context/AuthContext';
 import { useAuth } from '../context/AuthContext';
 import { Alert } from 'react-native';
@@ -79,7 +79,8 @@ const usePostController = () => {
                 })
                     .catch((error) => {
                         logoutNotAutenticated(error, logout, navigation);
-                        throw error;
+                        // throw error;
+                        return error;
                     });
 
             } else {
@@ -102,29 +103,22 @@ const usePostController = () => {
             // setError('Token não encontrado. Usuário não autenticado.');
             Alert.alert('Token não encontrado. Usuário não autenticado.');
             logout();
-            navigation.goBack();
+            if (navigation.canGoBack())
+                navigation.goBack();
             navigation.dispatch(DrawerActions.closeDrawer());
         }
         const newPost = { title: post.title, author: post.author, description: post.description, creation: new Date(), update_date: new Date(), idteacher: post.idteacher, };
 
-        var response = api.post('/api/posts', newPost).then((response: AxiosResponse) => {
+        var response = await api.post('/api/posts', newPost).then((response: AxiosResponse) => {
             verifyExpirationAndRefreshToken(response);
             // navigate('/teacherPostsList'); // Redireciona para a lista de posts do professor após a criação
             // navigation.navigate('ListPostsTeacher'); // Fecha o drawer após o timeout
-
+            return response.data;
         })
             .catch((error) => {
                 logoutNotAutenticated(error, logout, navigation);
 
                 if (error.response && error.response.data.errors) {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    // const errorMessages = (() => {
-                    //     const [firstError] = error.response.data.errors;
-                    //     console.log("firstError", error.response.data.errors);
-                    //     const [field, message] = Object.entries(firstError)[0];
-                    //     return `${field === "title" ? "Título" : field === "description" ? "Descrição" : "Autor"}: ${message}`;
-                    // })();
-
                     const messages = error.response.data.errors.map((err) => {
                         const [field, message] = Object.entries(err)[0];
 
@@ -146,25 +140,39 @@ const usePostController = () => {
                     console.log("errorMessages", error);
                 }
 
-                throw error;
+                return error;
 
             });
 
         return response as unknown as IPost | string;
     };
 
-    const deletarPost = (id: number) => {
-        const postIndex = posts.findIndex((post) => post.id === id);
+    const deletarPost = async (id: number): Promise<AxiosResponse | void> => {
+        // setError('');
+        const token = await AsyncStorage.getItem('authToken'); // Pegando o token do localStorage
 
-        if (postIndex !== -1) {
-
-            const postDeletado = posts[postIndex];
-            const novosPosts = posts.filter((post) => post.id !== id);
-            setPosts(novosPosts);
-            return postDeletado;
-        } else {
-            throw new Error('Post não encontrado!');
+        if (!token) {
+            // setError('Token não encontrado. Usuário não autenticado.');
+            Alert.alert('Token não encontrado. Usuário não autenticado.');
+            logout();
+            if (navigation.canGoBack())
+                navigation.goBack();
+            navigation.dispatch(DrawerActions.closeDrawer());
         }
+
+        var response = await api.delete(`/api/posts/${id}`).then((response: AxiosResponse) => {
+            verifyExpirationAndRefreshToken(response);
+            console.log('Post deletado com sucesso', response);
+            return response;
+        })
+            .catch((error) => {
+                console.log("error Delete Post", error);
+                logoutNotAutenticated(error, logout, navigation);
+
+                return error;
+            });
+        console.log("response", response);
+        return response;
     };
 
 
@@ -173,21 +181,20 @@ const usePostController = () => {
 
 export default usePostController;
 
-function logoutNotAutenticated(error: any, logout: () => void, navigation) {
+function logoutNotAutenticated(error: any, logout: () => void, navigation: Omit<NavigationProp<ReactNavigation.RootParamList>, "getState"> & { getState(): NavigationState | undefined; }) {
     console.log("error", error.response.status);
     if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-        // const timeoutRef = useRef<NodeJS.Timeout | null>(null); // Usamos useRef para manter o timeout
-        // navigation.navigate('home');
         Alert.alert('Sua sessão expirou', 'Efetue login novamente.', [
             {
                 text: 'OK',
                 onPress: () => {
-                    // if (timeoutRef.current !== null) {
-                    //     clearTimeout(timeoutRef.current); // Limpa o timeout se o botão "OK" for pressionado
-                    // }
-                    logout();
-                    navigation.goBack();
+                    // Não consegui usr o navigation.navigate('home');, então usei o navigation.goBack(); + navigation.dispatch(DrawerActions.closeDrawer());
                     // navigation.navigate('home');
+                    logout();
+                    console.log("navigation");
+                    if (navigation.canGoBack())
+                        navigation.goBack();
+
                     navigation.dispatch(DrawerActions.closeDrawer());
                 },
             },

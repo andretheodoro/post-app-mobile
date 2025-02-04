@@ -53,6 +53,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     const checkIsAuthenticated = async (token: string) => {
+        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+
         try {
             const response = await api.get('/api/teacher/isAuthenticated', {
                 headers: {
@@ -63,6 +65,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             if (response.status >= 200 && response.status < 300) {
                 setAuthenticated(true);
             } else {
+                console.log('BBBBBBBBBBBBBBBBBBBBBBBBB');
                 setAuthenticated(false);
             }
         } catch (error) {
@@ -91,15 +94,16 @@ export const verifyExpirationAndRefreshToken = async (response: AxiosResponse) =
     try {
         const newToken = response.headers['authorization']; // Algumas APIs podem usar um nome diferente, verifique com a sua API
         if (newToken) {
-            console.log('Novo token recebido:', newToken);
-            await AsyncStorage.setItem('authToken', newToken);
+            console.log('Novo token recebido:', newToken.toString().replace('Bearer ', ''));
+            await AsyncStorage.removeItem('authToken');
+            await AsyncStorage.setItem('authToken', newToken.toString().replace('Bearer ', ''));
         }
 
         const storedToken = await AsyncStorage.getItem('authToken');
         console.log('Token Atual:', storedToken);
 
-        await AsyncStorage.setItem('authToken', storedToken?.toString() ?? '');
+        // await AsyncStorage.setItem('authToken', storedToken?.toString() ?? '');
     } catch (error) {
-        console.error('Erro ao verificar expiração do token:', error);
+        console.log('Erro ao verificar expiração do token:', error);
     }
 };
