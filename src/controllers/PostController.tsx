@@ -95,6 +95,34 @@ const usePostController = () => {
         return result;
     };
 
+    const seachPosts = async (searchTerm: string): Promise<IPost[]> => {
+        let result: IPost[] = [];
+
+        try {
+
+            let response: AxiosResponse<any, any>;
+            const idTeacher = await AsyncStorage.getItem('idTeacher');
+            console.log("idTeacher", idTeacher);
+
+            response = await api.get('/api/posts/search', { params: { keyword: searchTerm } }).then((_response: AxiosResponse) => {
+                verifyExpirationAndRefreshToken(_response);
+                return _response;
+            })
+                .catch((error) => {
+                    logoutNotAutenticated(error, logout, navigation);
+                    // throw error;
+                    return error;
+                });
+
+            result = response.data as IPost[];
+            setPosts(result);  // Atualiza o estado
+        } catch (error) {
+            result = [];
+        }
+        setPosts([] as IPost[]);  // Defina como uma lista vazia em caso de erro
+        return result;
+    };
+
     const gravarPost = async (post: IPost): Promise<IPost | string> => {
         // setError('');
         const token = await AsyncStorage.getItem('authToken'); // Pegando o token do localStorage
@@ -231,7 +259,7 @@ const usePostController = () => {
     };
 
 
-    return { gravarPost, deletarPost, loadAllPosts, atualizarPost };
+    return { gravarPost, deletarPost, loadAllPosts, seachPosts, atualizarPost };
 };
 
 export default usePostController;

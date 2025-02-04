@@ -13,7 +13,7 @@ const ITEMS_PER_PAGE = 8;
 
 
 const ListPostStudent = () => {
-  const { loadAllPosts } = usePostController();
+  const { loadAllPosts, seachPosts } = usePostController();
   const [selectedItem, setSelectedItem] = useState<IPost | null>(null);
   const [searchText, setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState<IPost[]>([]);
@@ -54,7 +54,21 @@ const ListPostStudent = () => {
   }, []); // Esse useEffect será executado apenas uma vez
 
 
-  const handleSearch = (text: string) => {
+  // const handleSearch = (text: string) => {
+  //   setSearchText(text);
+  //   const searchTerm = text.toLowerCase();
+
+  //   if (searchTerm === '') {
+  //     setFilteredData([]);
+  //     setCurrentPage(1);
+  //   } else {
+  //     const results = data.filter(item => item.title.toString().toLowerCase().includes(searchTerm));
+  //     setFilteredData(results);
+  //     setCurrentPage(1);
+  //   }
+  // };
+
+  const handleSearch = async (text: string) => {
     setSearchText(text);
     const searchTerm = text.toLowerCase();
 
@@ -62,11 +76,19 @@ const ListPostStudent = () => {
       setFilteredData([]);
       setCurrentPage(1);
     } else {
-      const results = data.filter(item => item.title.toString().toLowerCase().includes(searchTerm));
-      setFilteredData(results);
-      setCurrentPage(1);
+      try {
+        const response = await seachPosts(searchTerm);
+        console.log('Posts filtrados:', response);
+        setFilteredData(response || []);
+        setCurrentPage(1);
+      } catch (error) {
+        setFilteredData([]);
+        setCurrentPage(1);
+        console.error('Erro ao buscar posts:', error);
+      }
     }
   };
+
 
   const handleClear = () => {
     setSearchText('');
