@@ -3,8 +3,7 @@ import { View, TextInput, Text, Button, StyleSheet, TouchableOpacity, TouchableW
 import { useForm, Controller } from 'react-hook-form';
 import { CommonActions, DrawerActions, RouteProp, useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
-import { IPost } from '@/src/model/Post';
-import usePostController from '@/src/controllers/PostController';
+import usePost, { IPost } from '@/src/model/Post';
 import { useAuth } from '@/src/context/AuthContext';
 import styles from './PostStyle';
 import Notification, { INotification } from '@/components/Notification/Notification';
@@ -15,7 +14,7 @@ interface PostFormProps {
 }
 
 const PostFormScreen: React.FC<PostFormProps> = ({ route, onSubmit }) => {
-    const { gravarPost, atualizarPost } = usePostController();
+    const { gravarPost, atualizarPost } = usePost();
     const { idTeacher } = useAuth();
 
     const [notification, setNotification] = useState<INotification | null>(null);

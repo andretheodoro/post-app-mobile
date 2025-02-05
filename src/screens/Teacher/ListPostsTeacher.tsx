@@ -3,11 +3,10 @@ import { View, Text, TextInput, TouchableOpacity, FlatList, Keyboard, ActivityIn
 import { FontAwesome6 } from '@expo/vector-icons';
 import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { IPost } from '@/src/model/Post';
+import usePost, { IPost } from '@/src/model/Post';
 import CardPostsTeacher from '@/components/Cards/Teacher/CardPostsTeacher';
 import Pagination from '@/components/Pagination/Pagination';
 import styles from './ListPostsTeacherStyle';
-import usePostController from '@/src/controllers/PostController';
 const ITEMS_PER_PAGE = 5;
 
 type RootStackParamList = {
@@ -16,7 +15,7 @@ type RootStackParamList = {
 
 
 const ListPostsTeacher = () => {
-  const { loadAllPosts } = usePostController();
+  const { loadAllPosts } = usePost();
   const [data, setData] = useState<IPost[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

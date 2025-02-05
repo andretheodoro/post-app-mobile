@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
-import usePostController from '@/src/controllers/PostController';
-import { IPost } from '@/src/model/Post';
+import usePost, { IPost } from '@/src/model/Post';
 import ConfirmDeleteModal from '@/components/ModalConfirmDel/ModalConfirmDel';
 import CardPostTeacherStyle from './CardPostTeacherStyle';
 import styles from '../CardStyle';
@@ -20,7 +19,7 @@ const CardPostsTeacher = ({ item, handleLoadPosts }: CardPostsTeacherProps) => {
     const [notification, setNotification] = useState<INotification | null>(null);
 
     // Chama o hook usePostController diretamente aqui
-    const { deletarPost } = usePostController();
+    const { deletarPost } = usePost();
 
     const truncatedDescription = item.description.length > 50 ? item.description.substring(0, 50) + '...' : item.description;
 

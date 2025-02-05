@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Keyboard, ActivityIndicator, TouchableWithoutFeedback, SafeAreaView, Modal } from 'react-native';
 import { FontAwesome6 } from '@expo/vector-icons';
 import ReadingForm from './PostToRead';
-import { IPost } from '@/src/model/Post';
-import usePostController from '@/src/controllers/PostController';
+import usePost, { IPost } from '@/src/model/Post';
 
 import styles from './ListPostStudentStyle';
 import CardPostsStudent from '@/components/Cards/Student/CardPostsStudent';
@@ -13,7 +12,7 @@ const ITEMS_PER_PAGE = 8;
 
 
 const ListPostStudent = () => {
-  const { loadAllPosts, seachPosts } = usePostController();
+  const { loadAllPosts, seachPosts } = usePost();
   const [selectedItem, setSelectedItem] = useState<IPost | null>(null);
   const [searchText, setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState<IPost[]>([]);

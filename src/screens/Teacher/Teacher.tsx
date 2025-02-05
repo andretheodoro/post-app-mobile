@@ -14,7 +14,6 @@ interface TeacherFormProps {
 }
 
 const TeacherFormScreen: React.FC<TeacherFormProps> = ({ route, onSubmit }) => {
-    // const { gravarTeacher } = useTeacherController();
     const { idTeacher } = useAuth();
     const { control, handleSubmit, reset, formState: { errors } } = useForm<ITeacher>();
     const teacher = route.params?._teacher as ITeacher;
