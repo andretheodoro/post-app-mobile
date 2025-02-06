@@ -186,7 +186,7 @@ Observação: Para as funcionalidades desse projetos serem executadas corretamen
 </p>
 
 - Caso seja um professor, insira suas credenciais na aba "Professor".
-- Caso credenciais válidas, Professores serão redirecionados para a página de gerenciamento de posts após clique no botão "Entrar".
+- Se as credenciais forem válidas, os professores serão redirecionados para a página de gerenciamento de posts após clicar no botão 'Entrar', onde poderão acessar funcionalidades exclusivas para seu perfil.
 - Caso seja um aluno, basta clicar na aba "Aluno" que será direcionado para a lista geral de Posts.
   
 ## 2. Página Principal
