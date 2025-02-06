@@ -182,7 +182,7 @@ Observação: Para as funcionalidades desse projetos serem executadas corretamen
 - Ao acessar o aplicativo o usuário será direcionado à página de login.
   
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/3662d821-f130-481f-9dad-cfe79fc1bc4e" alt="Interface do Professor - Posts" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/3662d821-f130-481f-9dad-cfe79fc1bc4e" alt="" width="200" height="350">
 </p>
 
 - Caso seja um professor, insira suas credenciais na aba "Professor".
@@ -194,7 +194,7 @@ Observação: Para as funcionalidades desse projetos serem executadas corretamen
 ## 2.1. Professor
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/ed91fec0-7272-400c-859c-ca1d483c0b12" alt="Interface do Professor - Posts" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/ed91fec0-7272-400c-859c-ca1d483c0b12" alt="" width="200" height="350">
 </p>
 
 ### 📌 Funcionalidades:
@@ -208,13 +208,13 @@ Observação: Para as funcionalidades desse projetos serem executadas corretamen
 - Para filtrar o Post desejado por palavra-chave basta informar na barra de pesquisa conforme indicado na imagem abaixo:
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/628557a3-5f4f-43b6-b453-784ea688fccc" alt="Interface do Professor - Posts" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/628557a3-5f4f-43b6-b453-784ea688fccc" alt="" width="200" height="350">
 </p>
 
 ## 2.2. Aluno:
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/38576f80-4f8f-4927-91c5-d75581e40631" alt="Interface do Professor - Posts" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/38576f80-4f8f-4927-91c5-d75581e40631" alt="" width="200" height="350">
 </p>
 
 ### 📌 Funcionalidades:
@@ -227,7 +227,7 @@ Observação: Para as funcionalidades desse projetos serem executadas corretamen
 - Para filtrar o Post desejado por palavra-chave basta informar na barra de pesquisa conforme indicado na imagem abaixo:
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/e4a9d08a-0a81-4318-825e-9a84f6d52f37" alt="Interface do Professor - Posts" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/e4a9d08a-0a81-4318-825e-9a84f6d52f37" alt="" width="200" height="350">
 </p>
 
 ## 3. Gerenciamento de Posts
@@ -235,28 +235,99 @@ Observação: Para as funcionalidades desse projetos serem executadas corretamen
 - 📝 **Criar Posts:** Para efetuar a criação de um novo Post basta clicar no ícone destacado na imagem abaixo localizado na tela de Lista de Posts e o usuário será redirecionado para o formulário de Cadastro de Posts, posteriormente, basta preencher os dados e clicar em "Gravar" para efetivar e gerar um novo Post.
   
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/0e289c6e-e085-4df3-9689-0a935e10d4c8" alt="Interface do Professor - Posts" width="200" height="350">
-  <img src="https://github.com/user-attachments/assets/3c0ee794-fc3b-4758-ae2a-ddb7b26c334a" alt="Interface do Professor - Posts" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/0e289c6e-e085-4df3-9689-0a935e10d4c8" alt="" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/3c0ee794-fc3b-4758-ae2a-ddb7b26c334a" alt="" width="200" height="350">
 </p>
 
 - ✏️ **Editar Post:** Os professores podem atualizar as informações de um post existente clicando no ícone de lápis na página de Lista de Posts. Isso abrirá o formulário de Cadastro de Posts com os dados previamente preenchidos, permitindo que o usuário faça as alterações desejadas. Veja nas imagens a seguir:
   
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/c6cde502-f670-4cb9-9a98-04ecdc8cc80f" alt="Interface do Professor - Posts" width="200" height="350">
-  <img src="https://github.com/user-attachments/assets/02bac087-bb6f-400d-9860-fa15be53a65e" alt="Interface do Professor - Posts" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/c6cde502-f670-4cb9-9a98-04ecdc8cc80f" alt="" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/02bac087-bb6f-400d-9860-fa15be53a65e" alt="" width="200" height="350">
 </p>
 
 - 🗑️ **Excluir Post:** Os professores podem remover posts irrelevantes clicando no ícone de lixeira na página de Lista de Posts. O sistema exibirá uma mensagem de confirmação de exclusão e, para confirmar a remoção, basta clicar em 'Sim'. Veja na imagem abaixo:
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/dede95d4-8b18-4f0d-a4e7-90433e63fa78" alt="Interface do Professor - Posts" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/dede95d4-8b18-4f0d-a4e7-90433e63fa78" alt="" width="200" height="350">
 </p>
 
-## 4. Leitura de Posts - Alnuo
+## 4. Leitura de Posts - Aluno
 
 - 📖 **Visualização do Post:** Os alunos podem visualizar os posts listados com mais detalhes. Basta clicar no card do post desejado, e o sistema abrirá um modal para a leitura completa do conteúdo.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/b368d701-43b4-4d3f-8585-c9def2576818" alt="Interface do Professor - Posts" width="200" height="350">
-  <img src="https://github.com/user-attachments/assets/aeb79741-a0ce-4a73-9285-8dcc4aaed8c9" alt="Interface do Professor - Posts" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/b368d701-43b4-4d3f-8585-c9def2576818" alt="" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/aeb79741-a0ce-4a73-9285-8dcc4aaed8c9" alt="" width="200" height="350">
+</p>
+
+## 5. Gerenciamento de Professores
+
+- 📋 **Lista de Professores:** Ao acessar a opção "Lista de Professores" no menu lateral, usuário será direcionado para a tela de lista de professores cadastrados no sistema, exibindo o nome e contato do mesmo, conforme imagem abaixo:
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/af7edc61-0b8e-4997-b1bd-8de67c6eab15" alt="" width="200" height="350">
+</p>
+
+- 📝 **Criar Professor:** Para efetuar a criação de um novo Professor basta clicar no ícone destacado na imagem abaixo localizado na tela de Lista de Professor e o usuário será redirecionado para o formulário de Cadastro de Professor, posteriormente, basta preencher os dados e clicar em "Gravar" para efetivar e gerar um novo Professor.
+  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f85eb9c5-eed5-43c7-9ba3-627dfecc727f" alt="" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/0e18ce61-3d63-42f7-9fb9-2f4b6b91d24b" alt="" width="200" height="350">
+</p>
+
+- ✏️ **Editar Professor:** Os professores podem atualizar as informações de um outro Professor já existente clicando no ícone de lápis na página de Lista de Professores. Isso abrirá o formulário de Cadastro de Professores com os dados previamente preenchidos, permitindo que o usuário faça as alterações desejadas. Veja nas imagens a seguir:
+  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/38fe188f-c9e9-4648-bea2-676912137015" alt="" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/41be0a98-8afa-4d60-ba82-6f4f1eccda76" alt="" width="200" height="350">
+</p>
+
+- 🗑️ **Excluir Professor:** Os professores podem remover outros professores clicando no ícone de lixeira na página de Lista de Professores. O sistema exibirá uma mensagem de confirmação de exclusão e, para confirmar a remoção, basta clicar em 'Sim'. Veja na imagem abaixo:
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8711b288-06b2-43e5-9be8-60f0f56fd1b7" alt="" width="200" height="350">
+</p>
+
+## 6. Gerenciamento de Alunos
+
+- 📋 **Lista de Alunos:** Ao acessar a opção "Lista de Alunos" no menu lateral, usuário será direcionado para a tela de lista de alunos cadastrados no sistema, exibindo o nome e contato do mesmo, conforme imagem abaixo:
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b1ef05f5-2df4-45be-9136-729409a9044a" alt="" width="200" height="350">
+</p>
+
+- 📝 **Criar Aluno:** Para efetuar a criação de um novo Aluno basta clicar no ícone destacado na imagem abaixo localizado na tela de Lista de Alunos e o usuário será redirecionado para o formulário de Cadastro de Alunos, posteriormente, basta preencher os dados e clicar em "Gravar" para efetivar e gerar um novo Aluno.
+  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9620da12-b054-445c-a505-0e2973a982c2" alt="" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/5dec4645-0124-4464-890f-592f2cd3d1ac" alt="" width="200" height="350">
+</p>
+
+- ✏️ **Editar Aluno:** Os professores podem atualizar as informações de um outro Aluno já cadastrado clicando no ícone de lápis na página de Lista de Alunos. Isso abrirá o formulário de Cadastro de Alunos com os dados previamente preenchidos, permitindo que o usuário faça as alterações desejadas. Veja nas imagens a seguir:
+  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/7ed1d30b-4346-46e4-9e18-6d7538ea85a8" alt="" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/6186dde0-639e-4ca1-9b09-8d30baafaec6" alt="" width="200" height="350">
+</p>
+
+- 🗑️ **Excluir Aluno:** Os professores podem remover outros alunos clicando no ícone de lixeira na página de Lista de Alunos. O sistema exibirá uma mensagem de confirmação de exclusão e, para confirmar a remoção, basta clicar em 'Sim'. Veja na imagem abaixo:
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/51188577-a65f-4487-b4c7-c1430ac570d8" alt="" width="200" height="350">
+</p>
+
+## 7. Menu Lateral - Professor
+
+Ao realizar o login como Professor e clicar no ícone de menu, localizado no lado superior esquerdo do aplicativo, será aberto um menu lateral contendo as seguintes funcionalidades:
+
+### 📌 Funcionalidades:
+- 📋 **Lista de Posts** redirecionando para exibição de todos os Posts cadastrados no sistema.
+- 👩‍🎓 **Lista de Alunos** redirecionando para exibição de todos os Alunos cadastrados no sistema. 
+- 👨‍🏫 **Lista de Professores** redirecionando para exibição de todos os Professores cadastrados no sistema. 
+- 👤 **Meu Perfil** para redirecionamento de alteração de senha.
+- 🚪 **Sair** para o Professor deslogar do sistema.
+  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a46885bf-bace-48fc-8a02-f0b936e90520" alt="" width="200" height="350">
 </p>
