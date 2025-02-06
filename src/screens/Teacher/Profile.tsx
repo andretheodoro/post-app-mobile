@@ -58,12 +58,20 @@ export default function Profile({ route }: { route: any }) {
       if (idTeacher) {
         const response = await updatePassword(Number(idTeacher), password);
         console.log('response', response);
-        setNotification({
-          type: 'success', message: 'Senha alterada com sucesso!', onClose: () => {
-            clearNotification();
-            navigation.navigate('ListPostTeacher');
-          }
-        });
+        if (response && response.status === 200) {
+          setNotification({
+            type: 'success', message: 'Senha alterada com sucesso!', onClose: () => {
+              clearNotification();
+              navigation.navigate('ListPostTeacher');
+            }
+          });
+        } else {
+          setNotification({
+            type: 'warning', message: response, onClose: () => {
+              clearNotification();
+            }
+          });
+        }
       } else {
         setNotification({
           type: 'error', message: 'Erro ao obter o ID do professor.', onClose: () => {

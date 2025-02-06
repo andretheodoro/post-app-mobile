@@ -132,7 +132,7 @@ const useTeacher = () => {
 
 
     const updatePassword = async (id: number, newPassword: string): Promise<ITeacher> => {
-        let result: ITeacher;
+        let result: ITeacher | string;
 
         try {
             let response = await api.get(`/api/teacher/${id}`).then((_response: AxiosResponse) => {
@@ -148,7 +148,7 @@ const useTeacher = () => {
             if (result.id && result.id > 0) {
                 result.password = newPassword;
                 console.log('Professor', result);
-                response = await atualizarTeacher(result);
+                result = await atualizarTeacher(result);
             }
         } catch (error) {
             result = {} as ITeacher
