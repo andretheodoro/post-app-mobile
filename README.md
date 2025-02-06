@@ -177,16 +177,19 @@ Observação: Para as funcionalidades desse projetos serem executadas corretamen
 
 ## Guia de Uso da Aplicação
 
-**1. Login**
+## 1. Login
 
-- Acesse a página de login.
+- Ao acessar o aplicativo o usuário será direcionado à página de login.
   
-![image](https://github.com/user-attachments/assets/e89d1af5-9d43-438d-b407-26a7917d0a45)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3662d821-f130-481f-9dad-cfe79fc1bc4e" alt="Interface do Professor - Posts" width="200" height="350">
+</p>
 
 - Caso seja um professor, insira suas credenciais na aba "Professor".
 - Caso credenciais válidas, Professores serão redirecionados para a página de gerenciamento de posts após clique no botão "Entrar".
-
-**2. Página Principal**
+- Caso seja um aluno, basta clicar na aba "Aluno" que será direcionado para a lista geral de Posts.
+  
+## 2. Página Principal
 
 ## 2.1. Professor
 
@@ -204,32 +207,56 @@ Observação: Para as funcionalidades desse projetos serem executadas corretamen
 
 - Para filtrar o Post desejado por palavra-chave basta informar na barra de pesquisa conforme indicado na imagem abaixo:
 
-![image](https://github.com/user-attachments/assets/628557a3-5f4f-43b6-b453-784ea688fccc)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/628557a3-5f4f-43b6-b453-784ea688fccc" alt="Interface do Professor - Posts" width="200" height="350">
+</p>
 
-**2.2. Aluno:**
+## 2.2. Aluno:
 
-![image](https://github.com/user-attachments/assets/38576f80-4f8f-4927-91c5-d75581e40631)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/38576f80-4f8f-4927-91c5-d75581e40631" alt="Interface do Professor - Posts" width="200" height="350">
+</p>
 
-- Lista de Posts com título, autor e uma breve descrição do Post
-- Campo de filtro para busca de Posts
-- Clique sobre card de Post irá abrir o conteúdo completo do mesmo
+### 📌 Funcionalidades:
+- 📋 **Lista de Posts** com título, autor e uma breve descrição.  
+- 🔍 **Campo de busca** para filtrar Posts.  
+- 🖱️ **Clique sobre card** de Post irá abrir o conteúdo completo do mesmo
 
 **Filtro de Posts:**
 
 - Para filtrar o Post desejado por palavra-chave basta informar na barra de pesquisa conforme indicado na imagem abaixo:
 
-![image](https://github.com/user-attachments/assets/e4a9d08a-0a81-4318-825e-9a84f6d52f37)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e4a9d08a-0a81-4318-825e-9a84f6d52f37" alt="Interface do Professor - Posts" width="200" height="350">
+</p>
 
-**2. Gerenciamento de Posts**
+## 3. Gerenciamento de Posts
 
-**Criar Post:** Professores podem criar posts preenchendo o formulário na página de criação.
+- 📝 **Criar Posts:** Para efetuar a criação de um novo Post basta clicar no ícone destacado na imagem abaixo localizado na tela de Lista de Posts e o usuário será redirecionado para o formulário de Cadastro de Posts, posteriormente, basta preencher os dados e clicar em "Gravar" para efetivar e gerar um novo Post.
+  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0e289c6e-e085-4df3-9689-0a935e10d4c8" alt="Interface do Professor - Posts" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/3c0ee794-fc3b-4758-ae2a-ddb7b26c334a" alt="Interface do Professor - Posts" width="200" height="350">
+</p>
 
+- ✏️ **Editar Post:** Os professores podem atualizar as informações de um post existente clicando no ícone de lápis na página de Lista de Posts. Isso abrirá o formulário de Cadastro de Posts com os dados previamente preenchidos, permitindo que o usuário faça as alterações desejadas. Veja nas imagens a seguir:
+  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c6cde502-f670-4cb9-9a98-04ecdc8cc80f" alt="Interface do Professor - Posts" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/02bac087-bb6f-400d-9860-fa15be53a65e" alt="Interface do Professor - Posts" width="200" height="350">
+</p>
 
-**Editar Post:** Professores podem atualizar informações de um post existente, clicando no ícone de lápis na página de lista de posts.
+- 🗑️ **Excluir Post:** Os professores podem remover posts irrelevantes clicando no ícone de lixeira na página de Lista de Posts. O sistema exibirá uma mensagem de confirmação de exclusão e, para confirmar a remoção, basta clicar em 'Sim'. Veja na imagem abaixo:
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/dede95d4-8b18-4f0d-a4e7-90433e63fa78" alt="Interface do Professor - Posts" width="200" height="350">
+</p>
 
-**Excluir Post:** Professores podem remover posts irrelevantes, clicando no ícone de lixeira na página de lista de posts.
+## 4. Leitura de Posts - Alnuo
 
-**3. Visualizar Posts**
+- 📖 **Visualização do Post:** Os alunos podem visualizar os posts listados com mais detalhes. Basta clicar no card do post desejado, e o sistema abrirá um modal para a leitura completa do conteúdo.
 
-Alunos podem visualizar posts listados com detalhes, basta clicar sobre o card do post desejado.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b368d701-43b4-4d3f-8585-c9def2576818" alt="Interface do Professor - Posts" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/aeb79741-a0ce-4a73-9285-8dcc4aaed8c9" alt="Interface do Professor - Posts" width="200" height="350">
+</p>
