@@ -23,55 +23,7 @@ export interface IPost {
 
 
 const usePost = () => {
-    const [posts, setPosts] = useState<IPost[]>([]);
     const navigation = useNavigation();
-
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         await loadAllPosts();
-    //     };
-    //     fetchData();
-    // }, []);
-
-    // // Função para listar posts
-    // const listarPosts = async () => {
-    //     const data = require('../mockups/Posts.json');
-    //     if (posts == undefined) {
-    //         setPosts(data);
-
-    //         console.log(posts[0]);
-    //     }
-    //     return posts;
-    // };
-
-
-    // api.post('/posts',
-    //     newPost, // Dados do post 
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`, // Enviando o token no header
-    //       },
-    //     }
-    //   )
-    //     .then((response: AxiosResponse) => {
-    //       verifyExpirationAndRefreshToken(response);
-    //       console.log('Post criado com sucesso');
-    //       navigate('/teacherPostsList'); // Redireciona para a lista de posts do professor após a criação
-    //     })
-    //     .catch((error) => {
-    //       if (error.response && error.response.data.errors) {
-    //         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    //         const errorMessages = (() => {
-    //           const [firstError] = error.response.data.errors;
-    //           const [field, message] = Object.entries(firstError)[0];
-    //           return `${field === "title" ? "Título" : field === "description" ? "Descrição" : "Autor"}: ${message}`;
-    //         })();
-    //         setError(errorMessages); // Define todas as mensagens de erro no estado
-    //       } else {
-    //         setError('Ocorreu um erro inesperado.');
-    //       }
-    //     });
 
 
     const { logout } = useAuth();
@@ -101,11 +53,9 @@ const usePost = () => {
                 response = await api.get('/api/posts');
             }
             result = response.data as IPost[];
-            setPosts(result);  // Atualiza o estado
         } catch (error) {
             result = [];
         }
-        setPosts([] as IPost[]);  // Defina como uma lista vazia em caso de erro
         return result;
     };
 
@@ -129,11 +79,9 @@ const usePost = () => {
                 });
 
             result = response.data as IPost[];
-            setPosts(result);  // Atualiza o estado
         } catch (error) {
             result = [];
         }
-        setPosts([] as IPost[]);  // Defina como uma lista vazia em caso de erro
         return result;
     };
 
@@ -142,7 +90,6 @@ const usePost = () => {
         const token = await AsyncStorage.getItem('authToken'); // Pegando o token do localStorage
 
         if (!token) {
-            // setError('Token não encontrado. Usuário não autenticado.');
             Alert.alert('Token não encontrado. Usuário não autenticado.');
             logout();
             if (navigation.canGoBack())
@@ -154,8 +101,6 @@ const usePost = () => {
 
         var response = await api.post('/api/posts', newPost).then((response: AxiosResponse) => {
             verifyExpirationAndRefreshToken(response);
-            // navigate('/teacherPostsList'); // Redireciona para a lista de posts do professor após a criação
-            // navigation.navigate('ListPostsTeacher'); // Fecha o drawer após o timeout
             return response.data;
         })
             .catch((error) => {
@@ -177,9 +122,7 @@ const usePost = () => {
 
                     console.log("errorMessages", messages);
                     return messages;
-                    // setError(errorMessages); // Define todas as mensagens de erro no estado
                 } else {
-                    // setError('Ocorreu um erro inesperado.');
                     console.log("errorMessages", error);
                 }
 
@@ -191,11 +134,9 @@ const usePost = () => {
     };
 
     const atualizarPost = async (post: IPost): Promise<IPost | string> => {
-        // setError('');
         const token = await AsyncStorage.getItem('authToken'); // Pegando o token do localStorage
 
         if (!token) {
-            // setError('Token não encontrado. Usuário não autenticado.');
             Alert.alert('Token não encontrado. Usuário não autenticado.');
             logout();
             if (navigation.canGoBack())
@@ -209,8 +150,6 @@ const usePost = () => {
         var response = await api.put(`/api/posts/${post.id}`, newPost).then((response: AxiosResponse) => {
 
             verifyExpirationAndRefreshToken(response);
-            // navigate('/teacherPostsList'); // Redireciona para a lista de posts do professor após a criação
-            // navigation.navigate('ListPostsTeacher'); // Fecha o drawer após o timeout
             return response.data;
         })
             .catch((error) => {
@@ -232,9 +171,7 @@ const usePost = () => {
 
                     console.log("errorMessages", messages);
                     return messages;
-                    // setError(errorMessages); // Define todas as mensagens de erro no estado
                 } else {
-                    // setError('Ocorreu um erro inesperado.');
                     console.log("errorMessages", error);
                 }
 
@@ -247,11 +184,9 @@ const usePost = () => {
 
 
     const deletarPost = async (id: number): Promise<AxiosResponse | void> => {
-        // setError('');
         const token = await AsyncStorage.getItem('authToken'); // Pegando o token do localStorage
 
         if (!token) {
-            // setError('Token não encontrado. Usuário não autenticado.');
             Alert.alert('Token não encontrado. Usuário não autenticado.');
             logout();
             if (navigation.canGoBack())
@@ -280,27 +215,3 @@ const usePost = () => {
 };
 
 export default usePost;
-
-// function logoutNotAutenticated(error: any, logout: () => void, navigation: Omit<NavigationProp<ReactNavigation.RootParamList>, "getState"> & { getState(): NavigationState | undefined; }) {
-//     console.log("error", error.response.status);
-//     if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-//         Alert.alert('Sua sessão expirou', 'Efetue login novamente.', [
-//             {
-//                 text: 'OK',
-//                 onPress: () => {
-//                     // Não consegui usr o navigation.navigate('home');, então usei o navigation.goBack(); + navigation.dispatch(DrawerActions.closeDrawer());
-//                     // navigation.navigate('home');
-//                     logout();
-//                     console.log("navigation");
-//                     if (navigation.canGoBack())
-//                         navigation.goBack();
-
-//                     navigation.dispatch(DrawerActions.closeDrawer());
-//                 },
-//             },
-//         ]);
-//     }
-// }
-
-
-

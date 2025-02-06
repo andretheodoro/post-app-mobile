@@ -3,28 +3,60 @@ import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import styles from '../CardStyle';
 import stylesTeacher from './CardTeacherStyle';
-import { ITeacher } from '@/src/model/Teacher';
+import useTeacher, { ITeacher } from '@/src/model/Teacher';
 import { useNavigation } from '@react-navigation/native';
 import ConfirmDeleteModal from '@/components/ModalConfirmDel/ModalConfirmDel';
+import Notification, { INotification } from '@/components/Notification/Notification';
+import cardTeacherStyle from './CardTeacherStyle';
 
-const CardTeacher = (item: ITeacher) => {
+interface CardTeacherProps {
+    item: ITeacher;
+    handleLoadTeachers: () => void;
+}
+
+const CardTeacher = ({ item, handleLoadTeachers }: CardTeacherProps) => {
+
     const navigation = useNavigation();
     const [isModalVisible, setModalVisible] = useState(false);
-    const handleEditPost = () => {
+    const [notification, setNotification] = useState<INotification | null>(null);
+    const { deletarTeacher } = useTeacher();
+
+    const handleEditTeacher = () => {
         const _teacher = item as ITeacher;
         navigation.navigate('CreateTeacher', { _teacher });
     };
 
-    // Passando deletarPost como callback
-    const deleteRecordFromApi = async (idPost: number) => {
-        // console.log('Chamada API de exclusão');
-        // Simulando uma chamada API com um atraso de 2 segundos
-        await new Promise(resolve => {
-            // deletarPost(idPost); // Aqui é onde a exclusão é chamada
-            setTimeout(resolve, 2000);
-            // listarPosts();
-        });
-        // console.log('Registro excluído com sucesso');
+    const deleteRecordFromApi = async (idTeacher: number) => {
+        var response = await deletarTeacher(idTeacher);
+        console.log('response', response);
+        if (response && response.status === 200) {
+            console.log('Ok', response);
+            setNotification({
+                type: 'success',
+                message: 'Professor excluído com sucesso.',
+                onClose: () => {
+                    navigation.navigate('ListTeacher', { refresh: true });
+                    setNotification(null)
+                    handleLoadTeachers();
+                },
+            });
+        } else {
+            if (response && response.response.data?.message) {
+                setNotification({
+                    type: 'error',
+                    message: `Erro ao excluir o Professor. Tente novamente.\n${response.response.data?.message}`,
+                    onClose: () => setNotification(null),
+                });
+            } else {
+                setNotification({
+                    type: 'error',
+                    message: 'Erro ao excluir o Professor. Tente novamente.',
+                    onClose: () => setNotification(null),
+                });
+            }
+
+
+        }
     };
 
     const handleCancel = () => {
@@ -33,19 +65,26 @@ const CardTeacher = (item: ITeacher) => {
 
     const handleConfirm = () => {
         setModalVisible(false);
-        Alert.alert('Registro excluído com sucesso!');  // Mensagem de confirmação
     };
 
     return (
         <View style={styles.card}>
+            {notification && (
+                <Notification
+                    type={notification.type}
+                    message={notification.message}
+                    duration={8000}
+                    onClose={notification.onClose}
+                />
+            )}
             <View style={styles.cardContent}>
                 <View style={styles.textContainer}>
-                    <Text style={stylesTeacher.name}>{item.name}</Text>
-                    <Text style={stylesTeacher.fone}>{item.fone}</Text>
+                    <Text style={cardTeacherStyle.name}>{item.name}</Text>
+                    <Text style={cardTeacherStyle.fone}>{item.contact}</Text>
                 </View>
 
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={[styles.button, styles.editButton]} onPress={handleEditPost}>
+                    <TouchableOpacity style={[styles.button, styles.editButton]} onPress={handleEditTeacher}>
                         <Text style={styles.buttonText}><FontAwesome5 name="edit" size={24} color="white" /></Text>
                     </TouchableOpacity>
 
@@ -58,11 +97,10 @@ const CardTeacher = (item: ITeacher) => {
                     isVisible={isModalVisible}
                     onCancel={handleCancel}
                     onConfirm={handleConfirm}
-                    onCallback={() => deleteRecordFromApi(item.id)} // Passando a função aqui
+                    onCallback={() => deleteRecordFromApi(item.id)}
                 />
             </View>
         </View>
     );
 };
-
 export default CardTeacher;

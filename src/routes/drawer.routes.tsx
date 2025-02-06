@@ -22,6 +22,9 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
     const handleLogout = () => {
         logout();
         navigation.dispatch(DrawerActions.closeDrawer());
+        // talvez eu precise fazer isso nos metodos onde desloga o usuario por token invalido
+        // Tiago - 2025-02-05
+        navigation.navigate('ListPostsTeacher' as never); // mando para lista de post, para que não bugue a tela, sumindo o drawer e ficando na profile
     };
 
     return (
@@ -43,6 +46,7 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
 export default function DrawerRoutes() {
     const navigation = useNavigation();
     const { isAuthenticated } = useAuth();
+
     return (
         <Drawer.Navigator
             screenOptions={{ swipeEnabled: isAuthenticated, headerShown: isAuthenticated }}
@@ -86,18 +90,26 @@ export default function DrawerRoutes() {
                         options={{
                             drawerIcon: ({ color, size }) => <FontAwesome5 name="user" color={color} size={size} />,
                             drawerLabel: 'Meu Perfil',
+                            title: 'Meu Perfil',
                         }}
                     />
                 </>
             ) : (
-                <Drawer.Screen
+                <><Drawer.Screen
                     name="home"
                     component={TabRoutes}
                     options={{
                         drawerIcon: ({ color, size }) => <FontAwesome5 name="home" color={color} size={size} />,
                         drawerLabel: 'Home',
-                    }}
-                />
+                    }} />
+                    <Drawer.Screen name="Profile"
+                        component={Profile}
+                        options={{
+                            drawerItemStyle: { display: isAuthenticated ? 'flex' : 'none' }, // Esconder a Rota
+                            drawerIcon: ({ color, size }) => <FontAwesome5 name="user" color={color} size={size} />,
+                            drawerLabel: 'Meu Perfil',
+                            title: 'Meu Perfil',
+                        }} /></>
             )}
 
             <Drawer.Screen name='CreatePost'

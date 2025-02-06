@@ -9,14 +9,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginVertical: 8,
     },
-    textarea: {
-        borderRadius: 4,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        padding: 10,
-        textAlignVertical: 'top',
-        height: 240,
-    },
     input: {
         height: 40,
         borderColor: '#ccc',
@@ -24,6 +16,22 @@ const styles = StyleSheet.create({
         marginBottom: 12,
         paddingLeft: 8,
         borderRadius: 4,
+    },
+    inputContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        borderWidth: 1,
+        borderColor: "#ccc",
+        borderRadius: 8,
+        paddingHorizontal: 10,
+    },
+    inputpassword: {
+        flex: 1,
+        height: 50,
+        fontSize: 16,
+    },
+    icon: {
+        padding: 10,
     },
     btn: {
         width: '100%',

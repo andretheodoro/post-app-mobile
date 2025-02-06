@@ -23,6 +23,9 @@ const styles = StyleSheet.create({
     message: {
         fontSize: 16,
         fontWeight: '500',
+        padding: 8,
+        flex: 1,
+        flexWrap: 'wrap',
     },
 });
 

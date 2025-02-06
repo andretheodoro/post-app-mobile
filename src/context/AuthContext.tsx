@@ -7,7 +7,7 @@ interface AuthContextType {
     isAuthenticated: boolean;
     token: string | null;
     idTeacher: number | null;
-    login: (token: string, idTeacher: number) => void;
+    login: (token: string, idTeacher: number, passwordDefault: boolean) => void;
     logout: () => void;
     loading: boolean;
 }
@@ -34,13 +34,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         loadToken();
     }, []);
 
-    const login = async (token: string, idTeacher: number) => {
+    const login = async (token: string, idTeacher: number, passwordDefault: boolean) => {
         setToken(token);
         setIdTeacher(idTeacher);
 
         setAuthenticated(true);
         await AsyncStorage.setItem('authToken', token);
         await AsyncStorage.setItem('idTeacher', idTeacher.toString());
+        await AsyncStorage.setItem('passwordDefault', passwordDefault.toString());
     };
 
     const logout = async () => {
@@ -50,11 +51,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setAuthenticated(false);
         await AsyncStorage.removeItem('authToken');
         await AsyncStorage.removeItem('idTeacher');
+        await AsyncStorage.removeItem('passwordDefault')
     };
 
     const checkIsAuthenticated = async (token: string) => {
-        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-
         try {
             const response = await api.get('/api/teacher/isAuthenticated', {
                 headers: {
@@ -65,7 +65,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             if (response.status >= 200 && response.status < 300) {
                 setAuthenticated(true);
             } else {
-                console.log('BBBBBBBBBBBBBBBBBBBBBBBBB');
                 setAuthenticated(false);
             }
         } catch (error) {
@@ -92,17 +91,16 @@ export const useAuth = () => {
 // Verifica a expiração do token e tenta atualizá-lo
 export const verifyExpirationAndRefreshToken = async (response: AxiosResponse) => {
     try {
-        const newToken = response.headers['authorization']; // Algumas APIs podem usar um nome diferente, verifique com a sua API
+        const newToken = response.headers['authorization'];
         if (newToken) {
             console.log('Novo token recebido:', newToken.toString().replace('Bearer ', ''));
-            await AsyncStorage.removeItem('authToken');
+            const { login } = useAuth();
+            login(newToken, Number(await AsyncStorage.getItem('idTeacher')), await AsyncStorage.getItem('passwordDefault') === 'true');
             await AsyncStorage.setItem('authToken', newToken.toString().replace('Bearer ', ''));
         }
 
         const storedToken = await AsyncStorage.getItem('authToken');
         console.log('Token Atual:', storedToken);
-
-        // await AsyncStorage.setItem('authToken', storedToken?.toString() ?? '');
     } catch (error) {
         console.log('Erro ao verificar expiração do token:', error);
     }

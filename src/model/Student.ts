@@ -17,7 +17,6 @@ export interface IStudent {
 }
 
 const useStudent = () => {
-    const [students, setStudents] = useState<IStudent[]>([]);
     const navigation = useNavigation();
     const { logout } = useAuth();
 
@@ -34,20 +33,16 @@ const useStudent = () => {
             });
 
             result = response.data as IStudent[];
-            setStudents(result);  // Atualiza o estado
         } catch (error) {
             result = [];
         }
-        setStudents([] as IStudent[]);  // Defina como uma lista vazia em caso de erro
+
         return result;
     };
 
     const gravarStudent = async (student: IStudent): Promise<IStudent | string> => {
-        // setError('');
-        const token = await AsyncStorage.getItem('authToken'); // Pegando o token do localStorage
-
+        const token = await AsyncStorage.getItem('authToken');
         if (!token) {
-            // setError('Token não encontrado. Usuário não autenticado.');
             Alert.alert('Token não encontrado. Usuário não autenticado.');
             logout();
             if (navigation.canGoBack())
@@ -72,14 +67,11 @@ const useStudent = () => {
                                 : field;
 
                         return `${fieldName}: ${message}`;
-                    }).join('\n');  // Junta as mensagens com quebra de linha
-
+                    }).join('\n');
 
                     console.log("errorMessages", messages);
                     return messages;
-                    // setError(errorMessages); // Define todas as mensagens de erro no estado
                 } else {
-                    // setError('Ocorreu um erro inesperado.');
                     console.log("errorMessages", error);
                 }
 
@@ -91,11 +83,9 @@ const useStudent = () => {
     };
 
     const atualizarStudent = async (student: IStudent): Promise<IStudent | string> => {
-        // setError('');
         const token = await AsyncStorage.getItem('authToken'); // Pegando o token do localStorage
 
         if (!token) {
-            // setError('Token não encontrado. Usuário não autenticado.');
             Alert.alert('Token não encontrado. Usuário não autenticado.');
             logout();
             if (navigation.canGoBack())
@@ -127,9 +117,7 @@ const useStudent = () => {
 
                     console.log("errorMessages", messages);
                     return messages;
-                    // setError(errorMessages); // Define todas as mensagens de erro no estado
                 } else {
-                    // setError('Ocorreu um erro inesperado.');
                     console.log("errorMessages", error);
                 }
 
@@ -142,11 +130,9 @@ const useStudent = () => {
 
 
     const deletarStudent = async (id: number): Promise<AxiosResponse | void> => {
-        // setError('');
         const token = await AsyncStorage.getItem('authToken'); // Pegando o token do localStorage
 
         if (!token) {
-            // setError('Token não encontrado. Usuário não autenticado.');
             Alert.alert('Token não encontrado. Usuário não autenticado.');
             logout();
             if (navigation.canGoBack())
