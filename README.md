@@ -211,6 +211,8 @@ Observação: Para as funcionalidades desse projetos serem executadas corretamen
   <img src="https://github.com/user-attachments/assets/628557a3-5f4f-43b6-b453-784ea688fccc" alt="" width="200" height="350">
 </p>
 
+- Essa funcionalidade aplica-se ao demais formulários de lista de professores e de alunos.
+  
 ## 2.2. Aluno:
 
 <p align="center">
@@ -279,8 +281,8 @@ Observação: Para as funcionalidades desse projetos serem executadas corretamen
 - ✏️ **Editar Professor:** Os professores podem atualizar as informações de um outro Professor já existente clicando no ícone de lápis na página de Lista de Professores. Isso abrirá o formulário de Cadastro de Professores com os dados previamente preenchidos, permitindo que o usuário faça as alterações desejadas. Veja nas imagens a seguir:
   
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/38fe188f-c9e9-4648-bea2-676912137015" alt="" width="200" height="350">
-  <img src="https://github.com/user-attachments/assets/41be0a98-8afa-4d60-ba82-6f4f1eccda76" alt="" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/e581b469-bae6-4d01-bf5b-9e05f8eb4eac" alt="" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/1967f03d-d92c-4b16-ab83-8fc52a4e4553" alt="" width="200" height="350">
 </p>
 
 - 🗑️ **Excluir Professor:** Os professores podem remover outros professores clicando no ícone de lixeira na página de Lista de Professores. O sistema exibirá uma mensagem de confirmação de exclusão e, para confirmar a remoção, basta clicar em 'Sim'. Veja na imagem abaixo:
@@ -294,30 +296,66 @@ Observação: Para as funcionalidades desse projetos serem executadas corretamen
 - 📋 **Lista de Alunos:** Ao acessar a opção "Lista de Alunos" no menu lateral, usuário será direcionado para a tela de lista de alunos cadastrados no sistema, exibindo o nome e contato do mesmo, conforme imagem abaixo:
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/b1ef05f5-2df4-45be-9136-729409a9044a" alt="" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/c22453f9-8122-416c-8da2-8be295891e2a" alt="" width="200" height="350">
 </p>
 
 - 📝 **Criar Aluno:** Para efetuar a criação de um novo Aluno basta clicar no ícone destacado na imagem abaixo localizado na tela de Lista de Alunos e o usuário será redirecionado para o formulário de Cadastro de Alunos, posteriormente, basta preencher os dados e clicar em "Gravar" para efetivar e gerar um novo Aluno.
   
 <p align="center">
   <img src="https://github.com/user-attachments/assets/9620da12-b054-445c-a505-0e2973a982c2" alt="" width="200" height="350">
-  <img src="https://github.com/user-attachments/assets/5dec4645-0124-4464-890f-592f2cd3d1ac" alt="" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/ca7438a2-a84e-4394-b86e-33bc42e6ca98" alt="" width="200" height="350">
 </p>
 
 - ✏️ **Editar Aluno:** Os professores podem atualizar as informações de um outro Aluno já cadastrado clicando no ícone de lápis na página de Lista de Alunos. Isso abrirá o formulário de Cadastro de Alunos com os dados previamente preenchidos, permitindo que o usuário faça as alterações desejadas. Veja nas imagens a seguir:
   
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/7ed1d30b-4346-46e4-9e18-6d7538ea85a8" alt="" width="200" height="350">
-  <img src="https://github.com/user-attachments/assets/6186dde0-639e-4ca1-9b09-8d30baafaec6" alt="" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/6451e4a0-03c4-4163-a1fd-867eddbb5a04" alt="" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/b6cef7f4-0ce8-4b78-a243-f054f2f8eb75" alt="" width="200" height="350">
 </p>
 
 - 🗑️ **Excluir Aluno:** Os professores podem remover outros alunos clicando no ícone de lixeira na página de Lista de Alunos. O sistema exibirá uma mensagem de confirmação de exclusão e, para confirmar a remoção, basta clicar em 'Sim'. Veja na imagem abaixo:
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/51188577-a65f-4487-b4c7-c1430ac570d8" alt="" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/98c7f4aa-3a08-41d3-87f2-1356fb6832f8" alt="" width="200" height="350">
 </p>
 
-## 7. Menu Lateral - Professor
+## 7. Meu Perfil
+
+Nessa página o professor pode realizar a alteração de senha do seu perfil, basta informar a nova senha desejada, confirmá-la e clicar em "Gravar", veja na imagem abaixo:
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5634a85d-f63b-43af-89aa-865cac33369f" alt="" width="200" height="350">
+</p>
+
+## 8. Validações e Funções gerais
+
+- **Validação de Campos Obrigatórios:**
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b1eacf39-94a0-41fa-b80e-9e7a5bcddeb2" alt="" width="200" height="350">
+</p>
+
+- **Validação de quantidade de caracteres informados nos campos:**
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/21377d2b-bf73-43b0-b388-c5b98191d7a3" alt="" width="200" height="350">
+</p>
+
+- **Tratamento de credenciais inválidas do professor:**
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/55f94a02-239a-4caf-82b7-afcea62dadab" alt="" width="200" height="350">
+</p>
+
+- **Solitação de alteração de senha no primeiro acesso do professor para garantir a segurança:**
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/43dd0bb0-1bfa-4e39-a31d-687ab88717d7" alt="" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/1cc67525-18ec-4a1a-9b50-8cb8d8f13eeb" alt="" width="200" height="350">
+</p>
+
+- **Páginação de registros:**
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1d4a201b-574e-4e95-9dff-c1d4d904c3d3" alt="" width="200" height="350">
+</p>
+
+## 8. Menu Lateral - Professor
 
 Ao realizar o login como Professor e clicar no ícone de menu, localizado no lado superior esquerdo do aplicativo, será aberto um menu lateral contendo as seguintes funcionalidades:
 
