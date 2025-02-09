@@ -169,7 +169,7 @@ npm install
 ```
 **3. Configure o arquivo .ENV**
 
-Configure o arquivo .env através da variável de ambiente chamada API_URL, que armazena a URL base da API utilizada no projeto.
+Configure o arquivo .env através da variável de ambiente chamada API_URL, informando a URL base da API utilizada no projeto.
 
 **4. Execute o projeto - Expo Go**
 
