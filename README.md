@@ -85,16 +85,17 @@ src/
 ├── api/                 # Configuração e serviços da API (axios)
 │   └── api.ts
 ├── context/             # Contexto de autenticação em um aplicativo React, permitindo que diferentes componentes acessem e modifiquem o estado de autenticação do usuário (professor)
-├── controllers/         # Controllers responsáveis por processa as requisições feitas pelo usuário, interagir com os dados e retornar uma resposta
-├── routes/              # Define as rotas e os comportamentos do menu lateral, incluindo uma customização do conteúdo do drawer e a funcionalidade de login/logout
+├── model/               # Define as rotas e os comportamentos do menu lateral, incluindo uma customização do conteúdo do drawer e a funcionalidade de login/logout
+├── routes/              # Define as entidades utilizadas no sistema, organizando as regras de negócio e estrutura dos dados
 ├── screens/             # Define a criação dos componentes que serão exibidos em tela
+├── .env                 # Arquivo de configuração, definindo URL da API Back-end
 ├── api.ts               # Configuração de Axios e chamadas à API
 ├── App.tsx              # Arquivo principal do aplicativo
 ├── package.json         # Dependências e scripts
 └── README.md            # Documentação
 ```
 
-## 📌 Funcionalidades do Aplicativo
+## 📌 Funcionalidades Gerais e Principais do Aplicativo
 O sistema de gerenciamento de posts possui funcionalidades distintas para **professores** e **estudantes**, conforme descrito abaixo:  
 
 ## 🎓 Funcionalidades para Professores  
@@ -119,6 +120,9 @@ O sistema de gerenciamento de posts possui funcionalidades distintas para **prof
 ### 📌 Página de Criação de Professores  
 - Formulário para cadastrar novos professores.
 
+### 📌 Exclusão de Professores  
+- Opção para excluir professores.
+
 ### 📌 Página de Edição de Professores  
 - Formulário para editar dados de professores existentes. 
 
@@ -130,6 +134,9 @@ O sistema de gerenciamento de posts possui funcionalidades distintas para **prof
 
 ### 📌 Página de Edição de Estudantes  
 - Formulário para editar dados de estudantes existentes.
+
+### 📌 Exclusão de Estudantes  
+- Opção para excluir estudantes.
 
 ### 📌 Página de Listagem de Estudantes  
 - Listagem paginada dos estudantes com opção de edição e exclusão dos dados.
@@ -160,16 +167,19 @@ Siga os passos abaixo para configurar e executar o projeto:
 ```bash
 npm install
 ```
+**3. Configure o arquivo .ENV**
 
-**3. Execute o projeto - Expo Go**
+Configure o arquivo .env através da variável de ambiente chamada API_URL, que armazena a URL base da API utilizada no projeto.
+
+**4. Execute o projeto - Expo Go**
 
 ```bash
 npx expo start
 ```
 
-**4. Abra o aplicativo Expo Go**
+**5. Abra o aplicativo Expo Go**
 
-**5. Scaneie o Qr Code gerado**
+**6. Scaneie o Qr Code gerado**
 
 ![image](https://github.com/user-attachments/assets/d0128d02-8aa3-4136-b9ee-1aa59402c2a0)
 
@@ -355,7 +365,7 @@ Nessa página o professor pode realizar a alteração de senha do seu perfil, ba
   <img src="https://github.com/user-attachments/assets/1d4a201b-574e-4e95-9dff-c1d4d904c3d3" alt="" width="200" height="350">
 </p>
 
-## 8. Menu Lateral - Professor
+## 9. Menu Lateral - Professor
 
 Ao realizar o login como Professor e clicar no ícone de menu, localizado no lado superior esquerdo do aplicativo, será aberto um menu lateral contendo as seguintes funcionalidades:
 
