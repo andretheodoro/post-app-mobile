@@ -299,6 +299,7 @@ Observação: Para as funcionalidades desse projetos serem executadas corretamen
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/8711b288-06b2-43e5-9be8-60f0f56fd1b7" alt="" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/f8b7dff3-6a26-42d2-82d7-057e7dfc44d7" alt="" width="200" height="350">
 </p>
 
 ## 6. Gerenciamento de Alunos
