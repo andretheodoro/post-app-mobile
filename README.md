@@ -355,7 +355,7 @@ Nessa página o professor pode realizar a alteração de senha do seu perfil, ba
   <img src="https://github.com/user-attachments/assets/55f94a02-239a-4caf-82b7-afcea62dadab" alt="" width="200" height="350">
 </p>
 
-- **Solitação de alteração de senha no primeiro acesso do professor para garantir a segurança:**
+- **Solitação de alteração de senha no primeiro acesso do professor para garantir a segurança, todos serão criados com senha padrão "TC4*2025":**
 <p align="center">
   <img src="https://github.com/user-attachments/assets/43dd0bb0-1bfa-4e39-a31d-687ab88717d7" alt="" width="200" height="350">
   <img src="https://github.com/user-attachments/assets/1cc67525-18ec-4a1a-9b50-8cb8d8f13eeb" alt="" width="200" height="350">
