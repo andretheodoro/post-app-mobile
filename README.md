@@ -363,6 +363,7 @@ Nessa página o professor pode realizar a alteração de senha do seu perfil, ba
 
 - **Páginação de registros:**
 <p align="center">
+  <img src="https://github.com/user-attachments/assets/ece250ca-b2eb-448c-b637-761949fed739" alt="" width="200" height="350">
   <img src="https://github.com/user-attachments/assets/1d4a201b-574e-4e95-9dff-c1d4d904c3d3" alt="" width="200" height="350">
 </p>
 
