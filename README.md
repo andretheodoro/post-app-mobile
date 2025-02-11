@@ -1,6 +1,6 @@
 # Interface Gráfica Mobile - Blogging - React Native
 
-Desenvolvimento de uma interface gráfica intuitiva e acessível para a aplicação de blogging, utilizando React Native. O projeto visa proporcionar uma experiência fluida e eficiente para docentes e alunos(as), permitindo a interação simplificada com os diversos endpoints REST já implementados no [back-end](https://github.com/andretheodoro/api-post-rest). A aplicação foi projetada com foco na usabilidade, garantindo uma navegação intuitiva e uma interface responsiva para diferentes dispositivos.
+Desenvolvimento de uma interface gráfica intuitiva e acessível para a aplicação de blogging, utilizando React Native. O projeto visa proporcionar uma experiência fluida e eficiente para docentes e alunos(as) / estudantes, permitindo a interação simplificada com os diversos endpoints REST já implementados no [back-end](https://github.com/andretheodoro/api-post-rest). A aplicação foi projetada com foco na usabilidade, garantindo uma navegação intuitiva e uma interface responsiva para diferentes dispositivos.
 
 ## Repositório Github
 
@@ -85,9 +85,9 @@ src/
 ├── api/                 # Configuração e serviços da API (axios)
 │   └── api.ts
 ├── context/             # Contexto de autenticação em um aplicativo React, permitindo que diferentes componentes acessem e modifiquem o estado de autenticação do usuário (professor)
-├── model/               # Define as rotas e os comportamentos do menu lateral, incluindo uma customização do conteúdo do drawer e a funcionalidade de login/logout
-├── routes/              # Define as entidades utilizadas no sistema, organizando as regras de negócio e estrutura dos dados
-├── screens/             # Define a criação dos componentes que serão exibidos em tela
+├── model/               # Define as entidades utilizadas no sistema, organizando as regras de negócio e estrutura dos dados
+├── routes/              # Define as rotas e os comportamentos do menu lateral, incluindo uma customização do conteúdo do drawer e a funcionalidade de login/logout
+├── screens/             # Define as páginas da aplicação
 ├── .env                 # Arquivo de configuração, definindo URL da API Back-end
 ├── api.ts               # Configuração de Axios e chamadas à API
 ├── App.tsx              # Arquivo principal do aplicativo
@@ -115,33 +115,31 @@ O sistema de gerenciamento de posts possui funcionalidades distintas para **prof
 
 ### 📌 Página de Edição de Postagens  
 - Formulário para professores editarem postagens existentes.  
-- Carregar os dados atuais do post para edição.
+- Carregar os dados atuais do post selecionado para edição.
+
+### 📌 Página de Listagem de Professores
+- Exibir lista de todas os professores com opção de edição e exclusão dos dados.
 
 ### 📌 Página de Criação de Professores  
-- Formulário para cadastrar novos professores.
-
-### 📌 Exclusão de Professores  
-- Opção para excluir professores.
+- Formulário para criar professores.  
+- Campos para nome, telefone e senha.
 
 ### 📌 Página de Edição de Professores  
-- Formulário para editar dados de professores existentes. 
+- Formulário para editar professores existentes.  
+- Carregar os dados atuais do professor selecionado para edição.
 
-### 📌 Página de Listagem de Professores  
-- Listagem paginada dos professores com opção de edição e exclusão dos dados.
+### 📌 Página de Listagem de Estudantes
+- Exibir lista de todas os estudantes com opção de edição e exclusão dos dados.
 
-### 📌 Página de Criação de Estudantes  
-- Formulário para cadastrar novos estudantes.
+### 📌 Página de Criação de Alunos  
+- Formulário para criar estudantes.  
+- Campos para nome e telefone para contato.
 
-### 📌 Página de Edição de Estudantes  
-- Formulário para editar dados de estudantes existentes.
+### 📌 Página de Edição de Alunos  
+- Formulário para editar estudantes existentes.  
+- Carregar os dados atuais do estudante selecionado para edição.
 
-### 📌 Exclusão de Estudantes  
-- Opção para excluir estudantes.
-
-### 📌 Página de Listagem de Estudantes  
-- Listagem paginada dos estudantes com opção de edição e exclusão dos dados.
-
-## 🧑‍🎓 Funcionalidades para Estudantes  
+## 🧑‍🎓 Funcionalidades para Alunos  
 
 ### 📌 Lista de Post  
 - Exibir lista de posts com título, autor e descrição breve. 
@@ -195,10 +193,17 @@ Observação: Para as funcionalidades desse projetos serem executadas corretamen
   <img src="https://github.com/user-attachments/assets/3662d821-f130-481f-9dad-cfe79fc1bc4e" alt="" width="200" height="350">
 </p>
 
-- Caso seja um professor, insira suas credenciais na aba "Professor".
+- Caso seja um professor, insira suas credenciais na "aba" Professor.
 - Se as credenciais forem válidas, os professores serão redirecionados para a página de gerenciamento de posts após clicar no botão 'Entrar', onde poderão acessar funcionalidades exclusivas para seu perfil.
-- Caso seja um aluno, basta clicar na aba "Aluno" que será direcionado para a lista geral de Posts.
+- O Professor ao realizar o primeiro acesso no sistema com a senha padrão TC4*{anoAtual} (ex.: TC4*2025), ao invés do aplicativo direcioná-lo para a lista de posts, este será direcionado para tela de perfil e orientado a realizar a alteração da senha para sua segurança:
   
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/43dd0bb0-1bfa-4e39-a31d-687ab88717d7" alt="" width="200" height="350">
+  <img src="https://github.com/user-attachments/assets/1cc67525-18ec-4a1a-9b50-8cb8d8f13eeb" alt="" width="200" height="350">
+</p>
+
+- Caso seja um aluno, basta clicar na aba "Aluno" que será direcionado para a lista geral de Posts.
+
 ## 2. Página Principal
 
 ## 2.1. Professor
@@ -355,12 +360,6 @@ Nessa página o professor pode realizar a alteração de senha do seu perfil, ba
   <img src="https://github.com/user-attachments/assets/55f94a02-239a-4caf-82b7-afcea62dadab" alt="" width="200" height="350">
 </p>
 
-- **Solitação de alteração de senha no primeiro acesso do professor para garantir a segurança, todos serão criados com senha padrão "TC4*2025":**
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/43dd0bb0-1bfa-4e39-a31d-687ab88717d7" alt="" width="200" height="350">
-  <img src="https://github.com/user-attachments/assets/1cc67525-18ec-4a1a-9b50-8cb8d8f13eeb" alt="" width="200" height="350">
-</p>
-
 - **Páginação de registros:**
 <p align="center">
   <img src="https://github.com/user-attachments/assets/ece250ca-b2eb-448c-b637-761949fed739" alt="" width="200" height="350">
@@ -372,11 +371,11 @@ Nessa página o professor pode realizar a alteração de senha do seu perfil, ba
 Ao realizar o login como Professor e clicar no ícone de menu, localizado no lado superior esquerdo do aplicativo, será aberto um menu lateral contendo as seguintes funcionalidades:
 
 ### 📌 Funcionalidades:
-- 📋 **Lista de Posts** redirecionando para exibição de todos os Posts cadastrados no sistema.
-- 👩‍🎓 **Lista de Alunos** redirecionando para exibição de todos os Alunos cadastrados no sistema. 
-- 👨‍🏫 **Lista de Professores** redirecionando para exibição de todos os Professores cadastrados no sistema. 
-- 👤 **Meu Perfil** para redirecionamento de alteração de senha.
-- 🚪 **Sair** para o Professor deslogar do sistema.
+- 📋 **Lista de Posts:** Formulário para exibição de todos os Posts cadastrados no sistema.
+- 👩‍🎓 **Lista de Alunos:** Formulário para exibição de todos os Alunos cadastrados no sistema. 
+- 👨‍🏫 **Lista de Professores:** Formulário para exibição de todos os Professores cadastrados no sistema. 
+- 👤 **Meu Perfil:** Formulário de alteração de senha.
+- 🚪 **Sair:** Botão para o Professor deslogar do sistema.
   
 <p align="center">
   <img src="https://github.com/user-attachments/assets/a46885bf-bace-48fc-8a02-f0b936e90520" alt="" width="200" height="350">
