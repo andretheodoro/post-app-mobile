@@ -26,7 +26,7 @@ const LoginTeacher = () => {
 
 
   const handleLogin = async () => {
-    console.log('LoginTeacher', Constants.expoConfig?.extra?.API_URL);
+    // console.log('LoginTeacher', Constants.expoConfig?.extra?.API_URL);
     // const navigation = useNavigation();
     // Acessando a URL base da API do app.json
     // const apiUrl = Constants.extra.API_URL;
@@ -40,13 +40,13 @@ const LoginTeacher = () => {
 
         return;
       }
-      const response = await api.post('/api/teacher/login', { username, password });
+      const response = await api.post('/api/teacher/login', { username, password, isMobile: true });
       const token = response.data.token;
       const idTeacher = response.data.idTeacher;
       login(token, idTeacher, (password === "TC4*" + new Date().getFullYear()));
       if (password === "TC4*" + new Date().getFullYear()) {
         console.log('Senha padrão, redirecionando...');
-        navigation.navigate('Profile', { passwordDefault: true }); // validar
+        navigation.navigate('Profile'); // validar
 
 
       }

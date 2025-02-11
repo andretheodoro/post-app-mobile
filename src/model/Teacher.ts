@@ -88,7 +88,7 @@ const useTeacher = () => {
         const token = await AsyncStorage.getItem('authToken'); // Pegando o token do localStorage
 
         if (!token) {
-            Alert.alert('Tokendddd não encontrado. Usuário não autenticado.');
+            Alert.alert('Token não encontrado. Usuário não autenticado.');
             logout();
             if (navigation.canGoBack())
                 navigation.goBack();
@@ -99,7 +99,7 @@ const useTeacher = () => {
 
         var response = await api.put(`/api/teacher/${teacher.id}`, newTeacher).then((response: AxiosResponse) => {
             verifyExpirationAndRefreshToken(response);
-            return response.data;
+            return response;
         })
             .catch((error) => {
                 LogoutNotAutenticated(error, logout, navigation);

@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import styles from './ProfileStyle';
 import Notification, { INotification } from '@/components/Notification/Notification';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { FontAwesome5 } from '@expo/vector-icons'; // Ícones para os botões de visualização e gravação
+import { FontAwesome } from '@expo/vector-icons'; // Ícones para os botões de visualização e gravação
 import useTeacher from '@/src/model/Teacher';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Profile({ route }: { route: any }) {
   const { updatePassword } = useTeacher();
-
-  const passwordDefault = route?.params?.hasOwnProperty('passwordDefault') ? route.params.passwordDefault : false;
+  console.log('route', route);
+  const [passwordDefault, setPasswordDefault] = useState<boolean>(false);
   const [notification, setNotification] = useState<INotification | null>(null);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -19,23 +19,34 @@ export default function Profile({ route }: { route: any }) {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigation = useNavigation();
 
-  console.log("Profile", passwordDefault);
-
   useFocusEffect(
     React.useCallback(() => {
-      if (passwordDefault) {
-        setNotification({
-          type: 'info',
-          message: '\nEste é seu primeiro acesso, por segurança recomendamos alterar a senha!\n',
-        });
-      }
+      const fetchPasswordDefault = async () => {
+        try {
+          const value = await AsyncStorage.getItem('passwordDefault');
+          console.log('value from AsyncStorage:', value);
+          const isPasswordDefault = value === 'true';
+          setPasswordDefault(isPasswordDefault);
+
+          if (isPasswordDefault) {
+            setNotification({
+              type: 'info',
+              duration: 3000,
+              message: '\nEste é seu primeiro acesso, por segurança recomendamos alterar a senha!\n',
+              onClose: clearNotification
+            });
+          }
+        } catch (error) {
+          console.log('Erro ao obter passwordDefault do AsyncStorage:', error);
+        }
+      };
+
+      fetchPasswordDefault();
       setPassword('');
       setConfirmPassword('');
 
       return () => setNotification(null);
-
-    }, [passwordDefault])
-  );
+    }, []));
 
   const clearNotification = () => {
     setNotification(null);
@@ -43,12 +54,12 @@ export default function Profile({ route }: { route: any }) {
 
   const handleSave = async () => {
     if (!password || !confirmPassword) {
-      setNotification({ type: 'warning', message: 'Ambos os campos são obrigatórios!' });
+      setNotification({ type: 'warning', duration: 3000, message: 'Ambos os campos são obrigatórios!', onClose: clearNotification });
       return;
     }
 
     if (password !== confirmPassword) {
-      setNotification({ type: 'warning', message: 'As senhas não coincidem!' });
+      setNotification({ type: 'warning', duration: 3000, message: 'As senhas não coincidem!', onClose: clearNotification });
       return;
     }
 
@@ -57,24 +68,27 @@ export default function Profile({ route }: { route: any }) {
       console.log('route.params.id', idTeacher);
       if (idTeacher) {
         const response = await updatePassword(Number(idTeacher), password);
-        console.log('response', response);
+        console.log('response 1', response.status);
         if (response && response.status === 200) {
           setNotification({
-            type: 'success', message: 'Senha alterada com sucesso!', onClose: () => {
+            type: 'success', duration: 3000, message: 'Senha alterada com sucesso!', onClose: async () => {
               clearNotification();
-              navigation.navigate('ListPostTeacher');
+              console.log('close and redirect', response);
+              await AsyncStorage.setItem('passwordDefault', "false");
+
+              navigation.navigate('ListPostsTeacher');
             }
           });
         } else {
           setNotification({
-            type: 'warning', message: response, onClose: () => {
+            type: 'warning', duration: 3000, message: response, onClose: () => {
               clearNotification();
             }
           });
         }
       } else {
         setNotification({
-          type: 'error', message: 'Erro ao obter o ID do professor.', onClose: () => {
+          type: 'error', duration: 3000, message: 'Erro ao obter o ID do professor.', onClose: () => {
             clearNotification();
           }
         });
@@ -82,7 +96,7 @@ export default function Profile({ route }: { route: any }) {
     } catch (error) {
       console.log('Erro ao alterar a senha', error);
       setNotification({
-        type: 'error', message: 'Erro ao alterar a senha. Tente novamente.', onClose: () => {
+        type: 'error', duration: 3000, message: 'Erro ao alterar a senha. Tente novamente.', onClose: () => {
           clearNotification();
         }
       });
@@ -96,8 +110,8 @@ export default function Profile({ route }: { route: any }) {
           <Notification
             type={notification.type}
             message={notification.message}
-            duration={8000}
-            onClose={clearNotification}
+            duration={notification.duration}
+            onClose={notification.onClose}
           />
         )}
 
@@ -112,7 +126,7 @@ export default function Profile({ route }: { route: any }) {
             onChangeText={setPassword}
           />
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-            <FontAwesome5 name={showPassword ? "eye-slash" : "eye"} size={24} color="gray" />
+            <FontAwesome name={showPassword ? "eye" : "eye-slash"} size={24} color="gray" />
           </TouchableOpacity>
         </View>
 
@@ -125,14 +139,14 @@ export default function Profile({ route }: { route: any }) {
             onChangeText={setConfirmPassword}
           />
           <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
-            <FontAwesome5 name={showConfirmPassword ? "eye-slash" : "eye"} size={24} color="gray" />
+            <FontAwesome name={showConfirmPassword ? "eye" : "eye-slash"} size={24} color="gray" />
           </TouchableOpacity>
         </View>
 
         {/* Botão Gravar */}
         <View style={styles.btn}>
           <TouchableOpacity style={styles.button} onPress={handleSave}>
-            <FontAwesome5 name="save" size={24} color="#fff" style={styles.iconButton} />
+            <FontAwesome name="save" size={24} color="#fff" style={styles.iconButton} />
             <Text style={styles.buttonText}>Gravar</Text>
           </TouchableOpacity>
         </View>

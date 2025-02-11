@@ -6,6 +6,7 @@ import styles from './NotificationStyle';
 export interface INotification {
     type: string;
     message: string;
+    duration?: number;
     onClose?: () => void;
 }
 

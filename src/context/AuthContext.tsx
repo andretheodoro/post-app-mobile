@@ -41,6 +41,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setAuthenticated(true);
         await AsyncStorage.setItem('authToken', token);
         await AsyncStorage.setItem('idTeacher', idTeacher.toString());
+        console.log('passwordDefault:', passwordDefault);
         await AsyncStorage.setItem('passwordDefault', passwordDefault.toString());
     };
 
@@ -90,6 +91,9 @@ export const useAuth = () => {
 
 // Verifica a expiração do token e tenta atualizá-lo
 export const verifyExpirationAndRefreshToken = async (response: AxiosResponse) => {
+    // TODO: Em alguns casos, o token não é atualizado. Verificar se o token está sendo atualizado corretamente.
+
+    return;
     try {
         const newToken = response.headers['authorization'];
         if (newToken) {

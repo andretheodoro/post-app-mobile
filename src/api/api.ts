@@ -3,11 +3,11 @@ import { DrawerActions } from '@react-navigation/native';
 import axios from 'axios';
 import Constants from 'expo-constants';
 import { Alert } from 'react-native';
-import Config from 'react-native-config';
+import { API_URL } from '@env';
 import { verifyExpirationAndRefreshToken } from '../context/AuthContext';
 
 const api = axios.create({
-    baseURL: Config.API_URL || Constants.expoConfig?.extra?.API_URL,
+    baseURL: API_URL,
 });
 
 console.log('Base URL:', api.defaults.baseURL);
