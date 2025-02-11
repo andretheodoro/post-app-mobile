@@ -81,6 +81,13 @@ Se você optar por Android Studio + Genymotion em vez do Expo Go, pode ter mais 
 ## Estrutura Geral do Projeto
 
 ```plaintext
+components/                # Componentes para criação e estruturação das páginas
+├── Cards/                 # Cards para apresentação das listas
+│   └── Student            # Cards para Estudantes
+│   └── Teacher            # Cards para Professores
+├── ModalConfirmDel/       # Confirmação das exclusões
+├── Notification/          # Notificações customizadas
+├── Pagination/            # Páginação das listas (posts, professores, alunos)
 src/
 ├── api/                 # Configuração e serviços da API (axios)
 │   └── api.ts
@@ -361,6 +368,9 @@ Nessa página o professor pode realizar a alteração de senha do seu perfil, ba
 </p>
 
 - **Páginação de registros:**
+- Lista de Posts para Estudantes: Páginação exibida acima de 8 registros.
+- Demais Listas: Páginação exibida acima de 5 registros.
+  
 <p align="center">
   <img src="https://github.com/user-attachments/assets/ece250ca-b2eb-448c-b637-761949fed739" alt="" width="200" height="350">
   <img src="https://github.com/user-attachments/assets/1d4a201b-574e-4e95-9dff-c1d4d904c3d3" alt="" width="200" height="350">
