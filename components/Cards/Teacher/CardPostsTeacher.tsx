@@ -30,7 +30,7 @@ const CardPostsTeacher = ({ item, handleLoadPosts }: CardPostsTeacherProps) => {
 
     // Passando deletarPost como callback
     const deleteRecordFromApi = async (idPost: number) => {
-        // console.log('Chamada API de exclusão');
+        // // console.log('Chamada API de exclusão');
         // Simulando uma chamada API com um atraso de 2 segundos
         // await new Promise(resolve => {
         //     deletarPost(idPost); // Aqui é onde a exclusão é chamada
@@ -39,7 +39,7 @@ const CardPostsTeacher = ({ item, handleLoadPosts }: CardPostsTeacherProps) => {
         // });
         var response = await deletarPost(idPost);
         if (response && response.status === 200) {
-            console.log('Chamada API de exclusão', response);
+            // console.log('Chamada API de exclusão', response);
             setNotification({
                 type: 'success',
                 message: 'Post excluído com sucesso.',
@@ -61,7 +61,7 @@ const CardPostsTeacher = ({ item, handleLoadPosts }: CardPostsTeacherProps) => {
             });
         }
 
-        // console.log('Registro excluído com sucesso');
+        // // console.log('Registro excluído com sucesso');
     };
 
     const handleCancel = () => {

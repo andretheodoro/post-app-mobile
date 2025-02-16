@@ -28,9 +28,9 @@ const CardTeacher = ({ item, handleLoadTeachers }: CardTeacherProps) => {
 
     const deleteRecordFromApi = async (idTeacher: number) => {
         var response = await deletarTeacher(idTeacher);
-        console.log('response', response);
+        // console.log('response', response);
         if (response && response.status === 200) {
-            console.log('Ok', response);
+            // console.log('Ok', response);
             setNotification({
                 type: 'success',
                 message: 'Professor excluído com sucesso.',

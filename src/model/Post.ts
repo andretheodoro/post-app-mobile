@@ -36,7 +36,7 @@ const usePost = () => {
 
             let response: AxiosResponse<any, any>;
             const idTeacher = await AsyncStorage.getItem('idTeacher');
-            console.log("idTeacher", idTeacher);
+            // console.log("idTeacher", idTeacher);
             if ((token != null && token != "") || (idTeacher != null && Number(idTeacher) > 0)) {
                 response = await api.get(`/api/posts/teacher/${idTeacher}`, {
                 }).then((_response: AxiosResponse) => {
@@ -66,7 +66,7 @@ const usePost = () => {
 
             let response: AxiosResponse<any, any>;
             const idTeacher = await AsyncStorage.getItem('idTeacher');
-            console.log("idTeacher", idTeacher);
+            // console.log("idTeacher", idTeacher);
 
             response = await api.get('/api/posts/search', { params: { keyword: searchTerm } }).then((_response: AxiosResponse) => {
                 verifyExpirationAndRefreshToken(_response);
@@ -120,10 +120,10 @@ const usePost = () => {
                     }).join('\n');  // Junta as mensagens com quebra de linha
 
 
-                    console.log("errorMessages", messages);
+                    // console.log("errorMessages", messages);
                     return messages;
                 } else {
-                    console.log("errorMessages", error);
+                    // console.log("errorMessages", error);
                 }
 
                 return error;
@@ -169,10 +169,10 @@ const usePost = () => {
                     }).join('\n');  // Junta as mensagens com quebra de linha
 
 
-                    console.log("errorMessages", messages);
+                    // console.log("errorMessages", messages);
                     return messages;
                 } else {
-                    console.log("errorMessages", error);
+                    // console.log("errorMessages", error);
                 }
 
                 return error;
@@ -197,16 +197,16 @@ const usePost = () => {
 
         var response = await api.delete(`/api/posts/${id}`).then((response: AxiosResponse) => {
             verifyExpirationAndRefreshToken(response);
-            console.log('Post deletado com sucesso', response);
+            // console.log('Post deletado com sucesso', response);
             return response;
         })
             .catch((error) => {
-                console.log("error Delete Post", error);
+                // console.log("error Delete Post", error);
                 LogoutNotAutenticated(error, logout, navigation);
 
                 return error;
             });
-        console.log("response", response);
+        // console.log("response", response);
         return response;
     };
 

@@ -10,13 +10,13 @@ const api = axios.create({
     baseURL: API_URL,
 });
 
-console.log('Base URL:', api.defaults.baseURL);
+// console.log('Base URL:', api.defaults.baseURL);
 
 // Interceptor para adicionar o token nas requisições
 api.interceptors.request.use(
     async (config) => {
         const token = await AsyncStorage.getItem('authToken');
-        // console.log('Interceptor request:', token);
+        // // console.log('Interceptor request:', token);
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
         }
@@ -30,14 +30,14 @@ api.interceptors.request.use(
 // api.interceptors.response.use(
 //     async response => {
 //         const token = await AsyncStorage.getItem('authToken');
-//         console.log('Interceptor response:', token);
+//         // console.log('Interceptor response:', token);
 //         if (token)
 //             verifyExpirationAndRefreshToken(response);
 //         return response;
 //     },
 //     (error) => Promise.reject(error)
 //     // async error => {
-//     //     console.log(error);
+//     //     // console.log(error);
 //     //     if (error.response && (error.response.status === 401 || error.response.status === 403)) {
 //     //         Alert.alert('Sua sessão expirou', 'Efetue login novamente.');
 
@@ -59,7 +59,7 @@ api.interceptors.request.use(
 //     api.interceptors.response.use(
 //         response => response,
 //         async error => {
-//             console.log(error);
+//             // console.log(error);
 //             if (error.response && (error.response.status === 401 || error.response.status === 403)) {
 //                 Alert.alert('Sua sessão expirou', 'Efetue login novamente.');
 

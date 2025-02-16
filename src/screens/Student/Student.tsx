@@ -37,7 +37,7 @@ const StudentFormScreen: React.FC<StudentFormProps> = ({ route, onSubmit }) => {
     // }, [notification]);
 
     const clearNotification = () => {
-        console.log("clearNotification");
+        // console.log("clearNotification");
         setNotification(null); // Limpa a notificação
     };
 
@@ -60,12 +60,12 @@ const StudentFormScreen: React.FC<StudentFormProps> = ({ route, onSubmit }) => {
             else
                 novoStudent = await gravarStudent(data);
 
-            console.log("novoStudent", novoStudent);
-            console.log("novoStudent2222", typeof novoStudent);
+            // console.log("novoStudent", novoStudent);
+            // console.log("novoStudent2222", typeof novoStudent);
 
             // onSubmit(novoStudent);
             if (typeof novoStudent === 'object') {
-                console.log("novoStudent", novoStudent);
+                // console.log("novoStudent", novoStudent);
                 setNotification({
                     type: 'success', message: "Aluno gravado com sucesso", onClose: () => {
                         clearNotification();
@@ -90,14 +90,14 @@ const StudentFormScreen: React.FC<StudentFormProps> = ({ route, onSubmit }) => {
 
             } else {
                 // Se não for um IStudent válido, exibe uma mensagem de alerta
-                console.log(novoStudent);
+                // console.log(novoStudent);
                 if (typeof novoStudent === 'string')
                     setNotification({ type: 'warning', message: novoStudent, onClose: clearNotification, });
 
             }
 
         } catch (error) {
-            console.log("error", error);
+            // console.log("error", error);
             setNotification({
                 type: 'error',
                 message: 'Erro ao gravar aluno. Tente novamente.',

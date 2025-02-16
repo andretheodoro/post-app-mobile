@@ -36,7 +36,7 @@ const PostFormScreen: React.FC<PostFormProps> = ({ route, onSubmit }) => {
     // }, [notification]);
 
     const clearNotification = () => {
-        console.log("clearNotification");
+        // console.log("clearNotification");
         setNotification(null); // Limpa a notificação
     };
 
@@ -59,12 +59,12 @@ const PostFormScreen: React.FC<PostFormProps> = ({ route, onSubmit }) => {
             else
                 novoPost = await gravarPost(data);
 
-            console.log("novoPost", novoPost);
-            console.log("novoPost2222", typeof novoPost);
+            // console.log("novoPost", novoPost);
+            // console.log("novoPost2222", typeof novoPost);
 
             // onSubmit(novoPost);
             if (typeof novoPost === 'object') {
-                console.log("novoPost", novoPost);
+                // console.log("novoPost", novoPost);
                 setNotification({
                     type: 'success', message: "Post gravado com sucesso", onClose: () => {
                         clearNotification();
@@ -89,14 +89,14 @@ const PostFormScreen: React.FC<PostFormProps> = ({ route, onSubmit }) => {
 
             } else {
                 // Se não for um IPost válido, exibe uma mensagem de alerta
-                console.log(novoPost);
+                // console.log(novoPost);
                 if (typeof novoPost === 'string')
                     setNotification({ type: 'warning', message: novoPost, onClose: clearNotification, });
 
             }
 
         } catch (error) {
-            console.log("error", error);
+            // console.log("error", error);
             setNotification({
                 type: 'error',
                 message: 'Erro ao gravar post. Tente novamente.',

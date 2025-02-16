@@ -7,7 +7,7 @@
 
 // export default function StackRoutes() {
 //     const { isAuthenticated } = useAuth();
-//     console.log(isAuthenticated);
+//     // console.log(isAuthenticated);
 //     return (
 //         <>
 //             {isAuthenticated ? (

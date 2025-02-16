@@ -71,10 +71,10 @@ const useTeacher = () => {
                     }).join('\n');  // Junta as mensagens com quebra de linha
 
 
-                    console.log("errorMessages", messages);
+                    // console.log("errorMessages", messages);
                     return messages;
                 } else {
-                    console.log("errorMessages", error);
+                    // console.log("errorMessages", error);
                 }
 
                 return error;
@@ -117,10 +117,10 @@ const useTeacher = () => {
                     }).join('\n');  // Junta as mensagens com quebra de linha
 
 
-                    console.log("errorMessages", messages);
+                    // console.log("errorMessages", messages);
                     return messages;
                 } else {
-                    console.log("errorMessages", error);
+                    // console.log("errorMessages", error);
                 }
 
                 return error;
@@ -144,10 +144,10 @@ const useTeacher = () => {
             });
 
             result = response.data as ITeacher;
-            console.log('Professoraaaa', result);
+            // console.log('Professoraaaa', result);
             if (result.id && result.id > 0) {
                 result.password = newPassword;
-                console.log('Professor', result);
+                // console.log('Professor', result);
                 result = await atualizarTeacher(result);
             }
         } catch (error) {
@@ -173,16 +173,16 @@ const useTeacher = () => {
 
         var response = await api.delete(`/api/teacher/${id}`).then((response: AxiosResponse) => {
             verifyExpirationAndRefreshToken(response);
-            console.log('Professor deletado com sucesso', response);
+            // console.log('Professor deletado com sucesso', response);
             return response;
         })
             .catch((error) => {
-                console.log("error Delete Professor", error.response.data?.message || error.response.data);
+                // console.log("error Delete Professor", error.response.data?.message || error.response.data);
                 LogoutNotAutenticated(error, logout, navigation);
 
                 return error;
             });
-        console.log("response", response);
+        // console.log("response", response);
         return response;
     };
 

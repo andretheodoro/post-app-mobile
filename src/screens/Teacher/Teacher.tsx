@@ -21,7 +21,7 @@ const TeacherFormScreen: React.FC<TeacherFormProps> = ({ route, onSubmit }) => {
     const [notification, setNotification] = useState<INotification | null>(null);
     const { control, handleSubmit, setValue, reset, formState: { errors } } = useForm<ITeacher>();
     const teacher = route.params?._teacher as ITeacher;
-    console.log("teacher", teacher);
+    // console.log("teacher", teacher);
     const navigation = useNavigation();
     // useEffect(() => {
     //     reset({ ...teacher, id: teacher.id ?? 0 });
@@ -53,7 +53,7 @@ const TeacherFormScreen: React.FC<TeacherFormProps> = ({ route, onSubmit }) => {
     // }, [notification]);
 
     const clearNotification = () => {
-        console.log("clearNotification");
+        // console.log("clearNotification");
         setNotification(null); // Limpa a notificação
     };
 
@@ -77,12 +77,12 @@ const TeacherFormScreen: React.FC<TeacherFormProps> = ({ route, onSubmit }) => {
             else
                 novoTeacher = await gravarTeacher(data);
 
-            console.log("novoTeacher", novoTeacher);
-            console.log("novoTeacher2222", typeof novoTeacher);
+            // console.log("novoTeacher", novoTeacher);
+            // console.log("novoTeacher2222", typeof novoTeacher);
 
             // onSubmit(novoTeacher);
             if (typeof novoTeacher === 'object') {
-                console.log("novoTeacher", novoTeacher);
+                // console.log("novoTeacher", novoTeacher);
                 setNotification({
                     type: 'success', message: "Professor gravado com sucesso", onClose: () => {
                         clearNotification();
@@ -107,14 +107,14 @@ const TeacherFormScreen: React.FC<TeacherFormProps> = ({ route, onSubmit }) => {
 
             } else {
                 // Se não for um ITeacher válido, exibe uma mensagem de alerta
-                console.log(novoTeacher);
+                // console.log(novoTeacher);
                 if (typeof novoTeacher === 'string')
                     setNotification({ type: 'warning', message: novoTeacher, onClose: clearNotification, });
 
             }
 
         } catch (error) {
-            console.log("error", error);
+            // console.log("error", error);
             setNotification({
                 type: 'error',
                 message: 'Erro ao gravar professor. Tente novamente.',

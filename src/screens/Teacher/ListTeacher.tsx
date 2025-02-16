@@ -47,7 +47,7 @@ const ListTeacher = () => {
   const handleLoadTeachers = async () => {
     setLoading(true);
     setError(null);
-    console.log("handleLoadTeachers");
+    // console.log("handleLoadTeachers");
     try {
       const teachers = await loadAllTeachers(); // Chama a função para carregar os Teachers
 

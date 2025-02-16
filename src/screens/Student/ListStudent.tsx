@@ -46,7 +46,7 @@ const ListStudent = () => {
   const handleLoadStudents = async () => {
     setLoading(true);
     setError(null);
-    console.log("handleLoadStudents");
+    // console.log("handleLoadStudents");
     try {
       const students = await loadAllStudents(); // Chama a função para carregar os Students
 

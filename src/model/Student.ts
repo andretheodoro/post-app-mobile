@@ -69,10 +69,10 @@ const useStudent = () => {
                         return `${fieldName}: ${message}`;
                     }).join('\n');
 
-                    console.log("errorMessages", messages);
+                    // console.log("errorMessages", messages);
                     return messages;
                 } else {
-                    console.log("errorMessages", error);
+                    // console.log("errorMessages", error);
                 }
 
                 return error;
@@ -115,10 +115,10 @@ const useStudent = () => {
                     }).join('\n');  // Junta as mensagens com quebra de linha
 
 
-                    console.log("errorMessages", messages);
+                    // console.log("errorMessages", messages);
                     return messages;
                 } else {
-                    console.log("errorMessages", error);
+                    // console.log("errorMessages", error);
                 }
 
                 return error;
@@ -143,16 +143,16 @@ const useStudent = () => {
 
         var response = await api.delete(`/api/student/${id}`).then((response: AxiosResponse) => {
             verifyExpirationAndRefreshToken(response);
-            console.log('Aluno deletado com sucesso', response);
+            // console.log('Aluno deletado com sucesso', response);
             return response;
         })
             .catch((error) => {
-                console.log("error Delete Aluno", error);
+                // console.log("error Delete Aluno", error);
                 LogoutNotAutenticated(error, logout, navigation);
 
                 return error;
             });
-        console.log("response", response);
+        // console.log("response", response);
         return response;
     };
 

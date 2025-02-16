@@ -28,10 +28,10 @@ const CardStudent = ({ item, handleLoadStudents }: CardStudentProps) => {
 
     // Passando deletarStudent como callback
     const deleteRecordFromApi = async (idStudent: number) => {
-        console.log('Chamada API de exclusão', idStudent);
+        // console.log('Chamada API de exclusão', idStudent);
         var response = await deletarStudent(idStudent);
         if (response && response.status === 200) {
-            console.log('Chamada API de exclusão', response);
+            // console.log('Chamada API de exclusão', response);
             setNotification({
                 type: 'success',
                 message: 'Aluno excluído com sucesso.',
@@ -53,7 +53,7 @@ const CardStudent = ({ item, handleLoadStudents }: CardStudentProps) => {
             });
         }
 
-        // console.log('Registro excluído com sucesso');
+        // // console.log('Registro excluído com sucesso');
     };
 
     const handleCancel = () => {

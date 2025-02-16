@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Profile({ route }: { route: any }) {
   const { updatePassword } = useTeacher();
-  console.log('route', route);
+  // console.log('route', route);
   const [passwordDefault, setPasswordDefault] = useState<boolean>(false);
   const [notification, setNotification] = useState<INotification | null>(null);
   const [password, setPassword] = useState('');
@@ -24,7 +24,7 @@ export default function Profile({ route }: { route: any }) {
       const fetchPasswordDefault = async () => {
         try {
           const value = await AsyncStorage.getItem('passwordDefault');
-          console.log('value from AsyncStorage:', value);
+          // console.log('value from AsyncStorage:', value);
           const isPasswordDefault = value === 'true';
           setPasswordDefault(isPasswordDefault);
 
@@ -37,7 +37,7 @@ export default function Profile({ route }: { route: any }) {
             });
           }
         } catch (error) {
-          console.log('Erro ao obter passwordDefault do AsyncStorage:', error);
+          // console.log('Erro ao obter passwordDefault do AsyncStorage:', error);
         }
       };
 
@@ -65,15 +65,15 @@ export default function Profile({ route }: { route: any }) {
 
     try {
       const idTeacher = await AsyncStorage.getItem('idTeacher');
-      console.log('route.params.id', idTeacher);
+      // console.log('route.params.id', idTeacher);
       if (idTeacher) {
         const response = await updatePassword(Number(idTeacher), password);
-        console.log('response 1', response.status);
+        // console.log('response 1', response.status);
         if (response && response.status === 200) {
           setNotification({
             type: 'success', duration: 3000, message: 'Senha alterada com sucesso!', onClose: async () => {
               clearNotification();
-              console.log('close and redirect', response);
+              // console.log('close and redirect', response);
               await AsyncStorage.setItem('passwordDefault', "false");
 
               navigation.navigate('ListPostsTeacher');
@@ -94,7 +94,7 @@ export default function Profile({ route }: { route: any }) {
         });
       }
     } catch (error) {
-      console.log('Erro ao alterar a senha', error);
+      // console.log('Erro ao alterar a senha', error);
       setNotification({
         type: 'error', duration: 3000, message: 'Erro ao alterar a senha. Tente novamente.', onClose: () => {
           clearNotification();

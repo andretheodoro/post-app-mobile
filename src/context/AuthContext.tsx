@@ -41,7 +41,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setAuthenticated(true);
         await AsyncStorage.setItem('authToken', token);
         await AsyncStorage.setItem('idTeacher', idTeacher.toString());
-        console.log('passwordDefault:', passwordDefault);
+        // console.log('passwordDefault:', passwordDefault);
         await AsyncStorage.setItem('passwordDefault', passwordDefault.toString());
     };
 
@@ -69,7 +69,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 setAuthenticated(false);
             }
         } catch (error) {
-            console.log('Erro ao verificar o token:', error);
+            // console.log('Erro ao verificar o token:', error);
             setAuthenticated(false);
         }
     };
@@ -97,15 +97,15 @@ export const verifyExpirationAndRefreshToken = async (response: AxiosResponse) =
     try {
         const newToken = response.headers['authorization'];
         if (newToken) {
-            console.log('Novo token recebido:', newToken.toString().replace('Bearer ', ''));
+            // console.log('Novo token recebido:', newToken.toString().replace('Bearer ', ''));
             const { login } = useAuth();
             login(newToken, Number(await AsyncStorage.getItem('idTeacher')), await AsyncStorage.getItem('passwordDefault') === 'true');
             await AsyncStorage.setItem('authToken', newToken.toString().replace('Bearer ', ''));
         }
 
         const storedToken = await AsyncStorage.getItem('authToken');
-        console.log('Token Atual:', storedToken);
+        // console.log('Token Atual:', storedToken);
     } catch (error) {
-        console.log('Erro ao verificar expiração do token:', error);
+        // console.log('Erro ao verificar expiração do token:', error);
     }
 };

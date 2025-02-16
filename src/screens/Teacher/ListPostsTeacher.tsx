@@ -45,7 +45,7 @@ const ListPostsTeacher = () => {
   const handleLoadPosts = async () => {
     setLoading(true);
     setError(null);
-    console.log("handleLoadPosts");
+    // console.log("handleLoadPosts");
     try {
       const posts = await loadAllPosts(); // Chama a função para carregar os posts
 

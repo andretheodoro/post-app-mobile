@@ -26,13 +26,13 @@ const LoginTeacher = () => {
 
 
   const handleLogin = async () => {
-    // console.log('LoginTeacher', Constants.expoConfig?.extra?.API_URL);
+    // // console.log('LoginTeacher', Constants.expoConfig?.extra?.API_URL);
     // const navigation = useNavigation();
     // Acessando a URL base da API do app.json
     // const apiUrl = Constants.extra.API_URL;
-    console.log('usuario: ', username);
-    console.log('senha: ', password);
-    // console.log('apiUrl: ', apiUrl);
+    // console.log('usuario: ', username);
+    // console.log('senha: ', password);
+    // // console.log('apiUrl: ', apiUrl);
 
     try {
       if (!username || !password) {
@@ -45,15 +45,15 @@ const LoginTeacher = () => {
       const idTeacher = response.data.idTeacher;
       login(token, idTeacher, (password === "TC4*" + new Date().getFullYear()));
       if (password === "TC4*" + new Date().getFullYear()) {
-        console.log('Senha padrão, redirecionando...');
+        // console.log('Senha padrão, redirecionando...');
         navigation.navigate('Profile'); // validar
 
 
       }
 
-      console.log('Token Login: ', token);
+      // console.log('Token Login: ', token);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       if (error.response && error.response.data.errors) {
         const messages = error.response.data.errors.map((err) => {
           const [field, message] = Object.entries(err)[0];
