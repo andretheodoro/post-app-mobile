@@ -11,11 +11,14 @@ import api from '@/src/api/api';
 const LoginTeacher = () => {
   const navigation = useNavigation();
   const { login } = useAuth();
-  const [username, setUsername] = useState('Andre');
-  const [password, setPassword] = useState('TC4*2025');
+  // const [username, setUsername] = useState('TECH CHALLENGE');
+  // const [password, setPassword] = useState('TC4*2025');
 
   // const [username, setUsername] = useState('Tiago');
   // const [password, setPassword] = useState('123456');
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -43,9 +46,9 @@ const LoginTeacher = () => {
       const response = await api.post('/api/teacher/login', { username, password, isMobile: true });
       const token = response.data.token;
       const idTeacher = response.data.idTeacher;
-      login(token, idTeacher, (password === "TC4*" + new Date().getFullYear()));
+      await login(token, idTeacher, (password === "TC4*" + new Date().getFullYear()));
       if (password === "TC4*" + new Date().getFullYear()) {
-        // console.log('Senha padrão, redirecionando...');
+        console.log('Senha padrão, redirecionando...');
         navigation.navigate('Profile'); // validar
 
 

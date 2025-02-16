@@ -24,7 +24,7 @@ export default function Profile({ route }: { route: any }) {
       const fetchPasswordDefault = async () => {
         try {
           const value = await AsyncStorage.getItem('passwordDefault');
-          // console.log('value from AsyncStorage:', value);
+          console.log('value from AsyncStorage:', value);
           const isPasswordDefault = value === 'true';
           setPasswordDefault(isPasswordDefault);
 

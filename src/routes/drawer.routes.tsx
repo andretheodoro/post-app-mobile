@@ -122,7 +122,7 @@ export default function DrawerRoutes() {
                         </TouchableOpacity>
                     ),
                 }}>
-                {props => <PostFormScreen {...props} onSubmit={data => // console.log(data)} />}
+                {props => <PostFormScreen {...props} onSubmit={data => { /* console.log(data) */ }} />}
             </Drawer.Screen>
             <Drawer.Screen name='CreateStudent'
                 options={{
@@ -134,7 +134,7 @@ export default function DrawerRoutes() {
                         </TouchableOpacity>
                     ),
                 }}>
-                {props => <StudentFormScreen {...props} onSubmit={data => // console.log(data)} />}
+                {props => <StudentFormScreen {...props} onSubmit={data => { /* console.log(data) */ }} />}
             </Drawer.Screen>
             <Drawer.Screen name='CreateTeacher'
                 options={{
@@ -146,7 +146,7 @@ export default function DrawerRoutes() {
                         </TouchableOpacity>
                     ),
                 }}>
-                {props => <TeacherFormScreen {...props} onSubmit={data => // console.log(data)} />}
+                {props => <TeacherFormScreen {...props} onSubmit={data => { /* console.log(data) */ }} />}
             </Drawer.Screen>
         </Drawer.Navigator>
     );
