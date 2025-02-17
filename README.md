@@ -174,7 +174,7 @@ npm install
 ```
 **3. Configure o arquivo .ENV**
 
-Configure o arquivo .env através da variável de ambiente chamada API_URL, informando a URL base da API utilizada no projeto.
+Crie o arquivo .env e configure-o através da variável de ambiente chamada API_URL, informando a URL base da API utilizada no projeto.
 
 ![image](https://github.com/user-attachments/assets/85596ab4-ebc9-4a4a-bcd9-d5da205f7e68)
 
