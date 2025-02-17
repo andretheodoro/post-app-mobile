@@ -392,3 +392,11 @@ Ao realizar o login como Professor e clicar no ícone de menu, localizado no lad
 <p align="center">
   <img src="https://github.com/user-attachments/assets/a46885bf-bace-48fc-8a02-f0b936e90520" alt="" width="200" height="350">
 </p>
+
+## Experiências e Desafios do projeto
+
+Durante o desenvolvimento da aplicação de blog em React Native, a equipe enfrentou desafios técnicos e organizacionais que exigiram adaptações e aprimoramentos contínuos. Um dos primeiros desafios foi a escolha da biblioteca de navegação, já que a simplicidade e a performance eram critérios essenciais. Optamos por uma solução que oferecesse transições fluidas entre telas sem comprometer a experiência do usuário.
+
+A integração do front-end com a API REST também foi um ponto crítico, principalmente no gerenciamento de estados. Utilizamos bibliotecas como Axios para realizar as chamadas à API.
+
+Essas experiências reforçaram a importância de boas práticas, como modularização do código, otimização do desempenho e uso eficiente das bibliotecas do React Native. Apesar dos desafios, o projeto permitiu à equipe aprimorar suas habilidades na construção de aplicativos móveis modernos e escaláveis.
