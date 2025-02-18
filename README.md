@@ -92,6 +92,7 @@ src/
 ├── api/                 # Configuração e serviços da API (axios)
 │   └── api.ts
 ├── context/             # Contexto de autenticação em um aplicativo React, permitindo que diferentes componentes acessem e modifiquem o estado de autenticação do usuário (professor)
+├── mockups/             # Mockup de Dados utilizado anteriormente da implementação com o back-end (API)
 ├── model/               # Define as entidades utilizadas no sistema, organizando as regras de negócio e estrutura dos dados
 ├── routes/              # Define as rotas e os comportamentos do menu lateral, incluindo uma customização do conteúdo do drawer e a funcionalidade de login/logout
 ├── screens/             # Define as páginas da aplicação
